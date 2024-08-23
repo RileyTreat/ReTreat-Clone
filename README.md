@@ -53,7 +53,7 @@ Returns the information about the current user that is logged in.
 
 * Require Authentication: false
 * Request
-  * Method: ? GET
+  * Method: ? `GET`
   * URL: ? /users/current
   * Body: none
 
