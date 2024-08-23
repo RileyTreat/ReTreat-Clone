@@ -1,14 +1,12 @@
 
-![DA5B4F6B-705A-4290-857D-B295E1ACFE8F](https://github.com/RileyTreat/Airbnb-project-riley-treat/assets/145404426/42207a14-9aa9-4e9f-9765-c7fd1391e429)
-
-# Airbnb-project-riley-treat
-
+# ReTreat-Clone
 
 # `<name of application here>`
 
 ## Database Schema Design
 
-[`<insert database schema design here>`](https://dbdiagram.io/d/65ee8008b1f3d4062c95e27d)
+![Untitled](https://github.com/user-attachments/assets/dfcb7213-1afb-451f-97ca-980c90059959)
+
 
 ## API Documentation
 
