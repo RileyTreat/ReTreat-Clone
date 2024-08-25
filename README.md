@@ -5,9 +5,9 @@
 
 ## Database Schema Design
 
-![Untitled](https://github.com/user-attachments/assets/dfcb7213-1afb-451f-97ca-980c90059959)
+//![Untitled](https://github.com/user-attachments/assets/dfcb7213-1afb-451f-97ca-980c90059959)
 
-
+[db-schema]: ./images/dbSchemaDesign.png
 ## API Documentation
 
 ## USER AUTHENTICATION/AUTHORIZATION
@@ -1459,4 +1459,3 @@ Return spots filtered by query parameters.
       }
     }
     ```
-
