@@ -1,8 +1,6 @@
 
 # ReTreat-Clone
 
-# `<name of application here>`
-
 ## Database Schema Design
 
 //![Untitled](https://github.com/user-attachments/assets/dfcb7213-1afb-451f-97ca-980c90059959)
