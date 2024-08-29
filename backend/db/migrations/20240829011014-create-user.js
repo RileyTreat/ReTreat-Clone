@@ -1,7 +1,7 @@
 'use strict';
 
 let options = {
- // schema: 'public',
+ // schema: 'retreat',
   //tableName: 'Users'
 };
 if (process.env.NODE_ENV === 'production') {
