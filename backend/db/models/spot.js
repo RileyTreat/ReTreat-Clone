@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Spot.belongsTo(models.User, {
-        foreignKey: 'ownerId'
+        foreignKey: 'ownerId',
+        as: 'Owner'
       })
 
       Spot.hasMany(models.SpotImage, {
@@ -47,40 +48,91 @@ module.exports = (sequelize, DataTypes) => {
     address: {
       type: DataTypes.STRING,
       unique: true,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: { msg: 'Street address is required' }
+    }
     },
     city: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: { msg: 'City is required' }
+    }
     },
     state: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: { msg: 'State is required' }
+    }
     },
     country: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: { msg: 'Country is required' }
+    }
     },
     lat: {
       type: DataTypes.DECIMAL,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        min: {
+            args: -90,
+            msg: 'Latitude must be within -90 and 90'
+        },
+        max: {
+            args: 90,
+            msg: 'Latitude must be within -90 and 90'
+        }
+    }
     },
     lng: {
       type: DataTypes.DECIMAL,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        min: {
+            args: -180,
+            msg: 'Longitude must be within -180 and 180'
+        },
+        max: {
+            args: 180,
+            msg: 'Longitude must be within -180 and 180'
+        }
+    }
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+            args: [1, 50],
+            msg: 'Name must be less than 50 characters'
+        }
+    }
     },
     description: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: { msg: 'Description is required' }
+    }
     },
     price: {
       type: DataTypes.DECIMAL,
-      allowNull: false
-    },
+      allowNull: false,
+      validate: {
+        isNumeric: {
+            msg: 'Price per day must be a number'
+        },
+        min: {
+            args: [0],
+            msg: 'Price per day must be a positive number'
+        }
+    }
+  }
+    
   }, {
     sequelize,
     modelName: 'Spot',
