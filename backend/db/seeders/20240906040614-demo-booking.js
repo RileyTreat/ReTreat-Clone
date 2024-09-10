@@ -17,21 +17,21 @@ module.exports = {
         spotId: 1,
         userId: 1,
         startDate: '2024-09-09',
-        endDate: '2023-1-11',
+        endDate: '2023-01-11',
      
       },
       {
         spotId: 2,
         userId: 2,
-        startDate: '2026-2-2',
-        endDate: '2026-2-12',
+        startDate: '2026-02-02',
+        endDate: '2026-02-12',
        
       },
       {
         spotId: 3,
         userId: 3,
-        startDate: '2024-3-3',
-        endDate: '2024-3-13',
+        startDate: '2024-03-03',
+        endDate: '2024-03-13',
        
       },
     ], { validate: true });
