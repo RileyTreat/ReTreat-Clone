@@ -7,6 +7,8 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 
 const { environment } = require('./config');
+//CHECKING LINE OF CODE BELOW
+//console.log('NODE_ENV:', process.env.NODE_ENV);
 const isProduction = environment === 'production';
 
 const app = express();
@@ -88,15 +90,38 @@ app.use((err, _req, _res, next) => {
 // backend/app.js
 // ...
 // Error formatter
+// app.use((err, _req, res, _next) => {
+//   res.status(err.status || 500);
+//   console.error(err);
+//   res.json({
+//     title: err.title || 'Server Error',
+//     message: err.message,
+//     errors: err.errors,
+//     stack: isProduction ? null : err.stack
+//   });
+// });
+
+//rewrite to get rid of the stack when deployed to render
 app.use((err, _req, res, _next) => {
   res.status(err.status || 500);
   console.error(err);
-  res.json({
-    title: err.title || 'Server Error',
-    message: err.message,
-    errors: err.errors,
-    stack: isProduction ? null : err.stack
-  });
+
+  if (isProduction) {
+    // In production, exclude stack from the response
+    res.json({
+      title: err.title || 'Server Error',
+      message: err.message,
+      errors: err.errors,
+    });
+  } else {
+    // In development, include stack in the response
+    res.json({
+      title: err.title || 'Server Error',
+      message: err.message,
+      errors: err.errors,
+      stack: err.stack,
+    });
+  }
 });
 
 module.exports = app;
