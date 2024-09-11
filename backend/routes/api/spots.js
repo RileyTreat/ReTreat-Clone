@@ -350,7 +350,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) =>{
             url: newImage.url,
             preview: newImage.preview
         }
-        res.status(200).json(formattedImage)
+        res.status(201).json(formattedImage)
     }catch(err) {
         return res.status(500).json({
             message: 'Failed to add image',
