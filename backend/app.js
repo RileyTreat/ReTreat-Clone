@@ -109,9 +109,9 @@ app.use((err, _req, res, _next) => {
   if (isProduction) {
     // In production, exclude stack from the response
     res.json({
-      title: err.title || 'Server Error',
+      //title: err.title || 'Server Error',
       message: err.message,
-      errors: err.errors,
+      //errors: err.errors,
     });
   } else {
     // In development, include stack in the response
