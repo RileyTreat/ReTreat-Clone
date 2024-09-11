@@ -211,12 +211,7 @@ router.delete('/:reviewId', requireAuth, async (req, res) => {
     const userId = req.user.id;
 
     try {
-        const review = await Review.findOne({
-            where: {
-                id: reviewId,
-                userId: userId  
-            }
-        });
+        const review = await Review.findByPk(reviewId);
 
         if (!review) {
             return res.status(404).json({ message: "Review couldn't be found" });
