@@ -17,12 +17,12 @@ const router = express.Router();
 // backend/routes/api/users.js
 // ...
 const validateSignup = [
-    check('firstName')
-      .exists({checkFalsy: true})
-      .withMessage('First name is required.'),
-    check('lastName')
-      .exists({checkFalsy: true})
-      .withMessage('Last name is required.'),
+    // check('firstName')
+    //   .exists({checkFalsy: true})
+    //   .withMessage('First name is required.'),
+    // check('lastName')
+    //   .exists({checkFalsy: true})
+    //   .withMessage('Last name is required.'),
     check('email')
       .exists({ checkFalsy: true })
       .isEmail()
@@ -62,7 +62,7 @@ router.post(
   
       await setTokenCookie(res, safeUser);
   
-      return res.status(201).json({
+      return res.json({
         user: safeUser
       });
     }
