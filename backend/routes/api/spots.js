@@ -493,6 +493,10 @@ router.get('/:spotId/bookings', requireAuth, async (req, res)=>{
 
     const isOwner = spot.Owner.id === userId;
     const bookings = spot.Bookings.map(booking => {
+        // Format the startDate and endDate to only return YYYY-MM-DD
+        const formattedStartDate = booking.startDate.toISOString().split('T')[0];
+        const formattedEndDate = booking.endDate.toISOString().split('T')[0];
+
         if (isOwner) {
             return {
                 User: {
@@ -503,17 +507,17 @@ router.get('/:spotId/bookings', requireAuth, async (req, res)=>{
                 id: booking.id,
                 spotId: booking.spotId,
                 userId: booking.userId,
-                startDate: booking.startDate,
-                endDate: booking.endDate,
+                startDate: formattedStartDate,
+                endDate: formattedEndDate,
                 createdAt: booking.createdAt,
                 updatedAt: booking.updatedAt
             };
         } else {
             return {
                 spotId: spot.id,
-                startDate: booking.startDate,
-                endDate: booking.endDate
-            };
+                startDate: formattedStartDate,
+                endDate: formattedEndDate
+             };
         }
     });
 

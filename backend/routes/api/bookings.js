@@ -53,28 +53,32 @@ router.get('/current', requireAuth, async(req, res, next) => {
     
             delete bookingJSON.Spot.SpotImages;
     
-            bookingsList.push({
-                id: bookingJSON.id,
-                spotId: bookingJSON.spotId,
-                Spot: {
-                    id: bookingJSON.Spot.id,
-                    ownerId: bookingJSON.Spot.ownerId,
-                    address: bookingJSON.Spot.address,
-                    city: bookingJSON.Spot.city,
-                    state: bookingJSON.Spot.state,
-                    country: bookingJSON.Spot.country,
-                    lat: bookingJSON.Spot.lat,
-                    lng: bookingJSON.Spot.lng,
-                    name: bookingJSON.Spot.name,
-                    price: bookingJSON.Spot.price,
-                    previewImage: bookingJSON.Spot.previewImage
-                },
-                userId: bookingJSON.userId,
-                startDate: bookingJSON.startDate,
-                endDate: bookingJSON.endDate,
-                createdAt: bookingJSON.createdAt,
-                updatedAt: bookingJSON.updatedAt
-            });
+        // Format the dates to only include the date part (YYYY-MM-DD)
+        const formattedBooking = {
+            id: bookingJSON.id,
+            spotId: bookingJSON.spotId,
+            Spot: {
+                id: bookingJSON.Spot.id,
+                ownerId: bookingJSON.Spot.ownerId,
+                address: bookingJSON.Spot.address,
+                city: bookingJSON.Spot.city,
+                state: bookingJSON.Spot.state,
+                country: bookingJSON.Spot.country,
+                lat: bookingJSON.Spot.lat,
+                lng: bookingJSON.Spot.lng,
+                name: bookingJSON.Spot.name,
+                price: bookingJSON.Spot.price,
+                previewImage: bookingJSON.Spot.previewImage
+            },
+            userId: bookingJSON.userId,
+            // Use toISOString().split('T')[0] to get the date in YYYY-MM-DD format
+            startDate: bookingJSON.startDate.toISOString().split('T')[0],
+            endDate: bookingJSON.endDate.toISOString().split('T')[0],
+            createdAt: bookingJSON.createdAt,
+            updatedAt: bookingJSON.updatedAt
+        };
+
+        bookingsList.push(formattedBooking);
         });
     
         res.status(200).json({ Bookings: bookingsList });
@@ -177,7 +181,12 @@ router.put('/:bookingId', requireAuth, async (req, res)=>{
             endDate
         });
 
-        res.status(200).json(booking);
+        // Format the dates before sending the response
+        const updatedBooking = booking.toJSON();
+        updatedBooking.startDate = updatedBooking.startDate.toISOString().split('T')[0];
+        updatedBooking.endDate = updatedBooking.endDate.toISOString().split('T')[0];
+
+        res.status(200).json(updatedBooking);
 
     } catch (error) {
         return res.status(500).json({
