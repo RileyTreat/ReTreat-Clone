@@ -105,16 +105,15 @@ router.post('/:reviewId/images', requireAuth, async (req,res)=> {
 
     try {
         // Find the review by reviewId and check if it belongs to the current user
-        const review = await Review.findOne({
-            where: {
-                id: reviewId,
-                userId: userId
-            }
-        });
+        const review = await Review.findByPk(reviewId);
 
-        // If the review doesn't exist or doesn't belong to the user, return a 404 error
+        // If the review doesn't exist
         if (!review) {
             return res.status(404).json({ message: "Review couldn't be found" });
+        }
+        // check if the current user is the owner of the review
+        if (review.userId !== userId) {
+            return res.status(403).json({ message: "Forbidden: You do not have permission to add images to this review" });
         }
 
         // Check if the review already has 10 images
@@ -138,7 +137,7 @@ router.post('/:reviewId/images', requireAuth, async (req,res)=> {
             url: newImage.url
         };
 
-        res.status(200).json(formattedImage);
+        res.status(201).json(formattedImage);
 
     } catch (err) {
         return res.status(500).json({
