@@ -80,30 +80,50 @@ router.get('/', async (req, res) => {
         },
         limit: size,
         offset: (page - 1) * size,
-        include: {
-            model: SpotImage,
-            attributes: ['url', 'preview']
-        }
+        include: [
+            {
+                model: SpotImage,
+                attributes: ['url', 'preview']
+            },
+            {
+                model: Review,
+                attributes: ['stars'],
+                required: false
+            }
+        ]
     });
 
-    let spotsList = []
+    let spotsList = spots.map(spot => spot.toJSON());
 
-    spots.forEach((spot) => {
-        spotsList.push(spot.toJSON())
-    })
-
-    spotsList.forEach((spot) => {
-        spot.SpotImages.forEach((image) => {
+    // Process each spot to include avgRating and previewImage
+    spotsList.forEach(spot => {
+        // Calculate preview image
+        spot.SpotImages.forEach(image => {
             if (image.preview === true) {
-                spot.previewImage = image.url
+                spot.previewImage = image.url;
             }
-        })
+        });
         if (!spot.previewImage) {
-            spot.previewImage = 'No preview image available'
+            spot.previewImage = 'No preview image available';
         }
-        delete spot.SpotImages
-    })
+        delete spot.SpotImages;
 
+        // Calculate average rating
+        let totalStars = 0;
+        let reviewCount = 0;
+        spot.Reviews.forEach(review => {
+            totalStars += review.stars;
+            reviewCount++;
+        });
+
+        if (reviewCount > 0) {
+            spot.avgRating = parseFloat((totalStars / reviewCount).toFixed(1));
+        } else {
+            spot.avgRating = null;
+        }
+
+        delete spot.Reviews;
+    });
     res.json({ Spots: spotsList, page, size });
 });
 
