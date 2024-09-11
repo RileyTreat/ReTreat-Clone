@@ -328,22 +328,23 @@ router.post('/:spotId/images', requireAuth, async (req, res) =>{
     const userId = req.user.id;
 
     try{
-        const spot = await Spot.findOne({
-            where: {
-                id: spotId,
-                ownerId: userId
-            }
-        })
+        const spot = await Spot.findByPk(spotId)
+        // const spot = await Spot.findOne({
+        //     where: {
+        //         id: spotId,
+        //         ownerId: userId
+        //     }
+        // })
 
         if(!spot){
             return res.status(404).json({message: "Spot couldn't be found"})
         }
-            // Check if the current user is the owner of the spot
-            if (spot.ownerId !== userId) {
-                return res.status(403).json({
-                    message: "Forbidden: You do not have permission to add images to this spot"
-                });
-            }
+        // Check if the current user is the owner of the spot
+        if (spot.ownerId !== userId) {
+            return res.status(403).json({
+                message: "Forbidden: You do not have permission to add images to this spot"
+            });
+        }
 
         const newImage = await SpotImage.create({
             spotId: spot.id,
