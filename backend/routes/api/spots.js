@@ -13,30 +13,54 @@ const router = express.Router();
 //GET all Spots
 router.get('/', async (req,res, err) => {
     const spots = await Spot.findAll({
-        include: {
+        include:[
+        {
+            model: Review,
+            attributes: ['stars']
+        },{
             model: SpotImage,
             attributes: ['url', 'preview']
         }
+    ]
     })
 
-    let spotsList = []
+    let spotsList = [];
 
+    // Push each spot into spotsList
     spots.forEach((spot) => {
-        spotsList.push(spot.toJSON())
-    })
+        spotsList.push(spot.toJSON());
+    });
 
-    spotsList.forEach((spot) => {
-        spot.SpotImages.forEach((image) => {
-            if(image.preview === true){
-                spot.previewImage = image.url
-            }
-        })
-        if(!spot.previewImage){
-            spot.previewImage = 'No preview image available'
+    const formattedSpots = spotsList.map((spot) => {
+        // Calculate average rating
+        let totalStars = 0;
+        let reviewCount = 0;
+        spot.Reviews.forEach((review) => {
+            totalStars += review.stars;
+            reviewCount++;
+        });
+
+        if (reviewCount > 0) {
+            spot.avgRating = parseFloat((totalStars / reviewCount).toFixed(1));
+        } else {
+            spot.avgRating = null;
         }
-        delete spot.SpotImages
+        delete spot.Reviews; // Remove Reviews after processing avgRating
+
+        // Calculate preview image
+        spot.SpotImages.forEach((image) => {
+            if (image.preview === true) {
+                spot.previewImage = image.url;
+            }
+        });
+        if (!spot.previewImage) {
+            spot.previewImage = 'No preview image available';
+        }
+        delete spot.SpotImages; // Remove SpotImages after processing previewImage
+
+        return spot;
     })
-    res.json(spotsList)
+    res.json({ Spots: formattedSpots }); 
 })
 
 //GET return spots filtered with query parameters
