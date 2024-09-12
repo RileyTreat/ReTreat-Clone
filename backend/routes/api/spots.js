@@ -70,12 +70,12 @@ router.get('/', async (req, res) => {
     // Convert query parameters to proper types
     page = parseInt(page) || 1;  // Default to 1 if invalid or not provided
     size = parseInt(size) || 20;  // Default to 20 if invalid or not provided
-    minLat = parseFloat(minLat);
-    maxLat = parseFloat(maxLat);
-    minLng = parseFloat(minLng);
-    maxLng = parseFloat(maxLng);
-    minPrice = parseFloat(minPrice);
-    maxPrice = parseFloat(maxPrice);
+    minLat = minLat !== undefined ? parseFloat(minLat) : undefined;
+    maxLat = maxLat !== undefined ? parseFloat(maxLat) : undefined;
+    minLng = minLng !== undefined ? parseFloat(minLng) : undefined;
+    maxLng = maxLng !== undefined ? parseFloat(maxLng) : undefined;
+    minPrice = minPrice !== undefined ? parseFloat(minPrice) : undefined;
+    maxPrice = maxPrice !== undefined ? parseFloat(maxPrice) : undefined
 
     // Validation
     const errors = {};
