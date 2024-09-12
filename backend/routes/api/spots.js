@@ -11,31 +11,120 @@ const {Op} = require('sequelize')
 const router = express.Router();
 
 //GET all Spots
-router.get('/', async (req,res, err) => {
+// router.get('/', async (req,res, err) => {
+//     const spots = await Spot.findAll({
+//         include:[
+//         {
+//             model: Review,
+//             attributes: ['stars']
+//         },{
+//             model: SpotImage,
+//             attributes: ['url', 'preview']
+//         }
+//     ]
+//     })
+
+//     let spotsList = [];
+
+//     // Push each spot into spotsList
+//     spots.forEach((spot) => {
+//         spotsList.push(spot.toJSON());
+//     });
+
+//     const formattedSpots = spotsList.map((spot) => {
+//         // Calculate average rating
+//         let totalStars = 0;
+//         let reviewCount = 0;
+//         spot.Reviews.forEach((review) => {
+//             totalStars += review.stars;
+//             reviewCount++;
+//         });
+
+//         if (reviewCount > 0) {
+//             spot.avgRating = parseFloat((totalStars / reviewCount).toFixed(1));
+//         } else {
+//             spot.avgRating = null;
+//         }
+//         delete spot.Reviews; // Remove Reviews after processing avgRating
+
+//         // Calculate preview image
+//         spot.SpotImages.forEach((image) => {
+//             if (image.preview === true) {
+//                 spot.previewImage = image.url;
+//             }
+//         });
+//         if (!spot.previewImage) {
+//             spot.previewImage = 'No preview image available';
+//         }
+//         delete spot.SpotImages; // Remove SpotImages after processing previewImage
+
+//         return spot;
+//     })
+//     res.json({ Spots: formattedSpots }); 
+// })
+
+// GET all spots filtered with query parameters
+router.get('/', async (req, res) => {
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+
+    // Convert query parameters to proper types
+    page = parseInt(page) || 1;  // Default to 1 if invalid or not provided
+    size = parseInt(size) || 20;  // Default to 20 if invalid or not provided
+    minLat = parseFloat(minLat);
+    maxLat = parseFloat(maxLat);
+    minLng = parseFloat(minLng);
+    maxLng = parseFloat(maxLng);
+    minPrice = parseFloat(minPrice);
+    maxPrice = parseFloat(maxPrice);
+
+    // Validation
+    const errors = {};
+    if (isNaN(page) || page < 1) errors.page = "Page must be greater than or equal to 1";
+    if (isNaN(size) || size < 1 || size > 20) errors.size = "Size must be between 1 and 20";
+    if (minLat !== undefined && (isNaN(minLat) || minLat < -90 || minLat > 90)) errors.minLat = "Minimum latitude is invalid";
+    if (maxLat !== undefined && (isNaN(maxLat) || maxLat < -90 || maxLat > 90)) errors.maxLat = "Maximum latitude is invalid";
+    if (minLng !== undefined && (isNaN(minLng) || minLng < -180 || minLng > 180)) errors.minLng = "Minimum longitude is invalid";
+    if (maxLng !== undefined && (isNaN(maxLng) || maxLng < -180 || maxLng > 180)) errors.maxLng = "Maximum longitude is invalid";
+    if (minPrice !== undefined && (isNaN(minPrice) || minPrice < 0)) errors.minPrice = "Minimum price must be greater than or equal to 0";
+    if (maxPrice !== undefined && (isNaN(maxPrice) || maxPrice < 0)) errors.maxPrice = "Maximum price must be greater than or equal to 0";
+
+    // If there are errors, respond with a 400 status
+    if (Object.keys(errors).length > 0) {
+        return res.status(400).json({
+            message: "Bad Request",
+            errors
+        });
+    }
+
     const spots = await Spot.findAll({
-        include:[
-        {
-            model: Review,
-            attributes: ['stars']
-        },{
-            model: SpotImage,
-            attributes: ['url', 'preview']
-        }
-    ]
-    })
-
-    let spotsList = [];
-
-    // Push each spot into spotsList
-    spots.forEach((spot) => {
-        spotsList.push(spot.toJSON());
+        where: {
+            lat: { [Op.between]: [minLat || -90, maxLat || 90] },
+            lng: { [Op.between]: [minLng || -180, maxLng || 180] },
+            price: { [Op.between]: [minPrice || 0, maxPrice || Number.MAX_SAFE_INTEGER] }
+        },
+        limit: size,
+        offset: (page - 1) * size,
+        include: [
+            {
+                model: SpotImage,
+                attributes: ['url', 'preview']
+            },
+            {
+                model: Review,
+                attributes: ['stars'],
+                required: false
+            }
+        ]
     });
 
-    const formattedSpots = spotsList.map((spot) => {
+    let spotsList = spots.map(spot => spot.toJSON());
+
+    // Process each spot to include avgRating and previewImage
+    spotsList.forEach(spot => {
         // Calculate average rating
         let totalStars = 0;
         let reviewCount = 0;
-        spot.Reviews.forEach((review) => {
+        spot.Reviews.forEach(review => {
             totalStars += review.stars;
             reviewCount++;
         });
@@ -48,7 +137,7 @@ router.get('/', async (req,res, err) => {
         delete spot.Reviews; // Remove Reviews after processing avgRating
 
         // Calculate preview image
-        spot.SpotImages.forEach((image) => {
+        spot.SpotImages.forEach(image => {
             if (image.preview === true) {
                 spot.previewImage = image.url;
             }
@@ -59,97 +148,10 @@ router.get('/', async (req,res, err) => {
         delete spot.SpotImages; // Remove SpotImages after processing previewImage
 
         return spot;
-    })
-    res.json({ Spots: formattedSpots }); 
-})
+    });
 
-//GET return spots filtered with query parameters
-// router.get('/', async (req, res) => {
-//     let { page = 1, size = 20, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
-
-//     // Convert query parameters to proper types
-//     page = parseInt(page);
-//     size = parseInt(size);
-//     minLat = parseFloat(minLat);
-//     maxLat = parseFloat(maxLat);
-//     minLng = parseFloat(minLng);
-//     maxLng = parseFloat(maxLng);
-//     minPrice = parseFloat(minPrice);
-//     maxPrice = parseFloat(maxPrice);
-
-//     // Validation
-//     const errors = {};
-//     if (isNaN(page) || page < 1) errors.page = "Page must be greater than or equal to 1";
-//     if (isNaN(size) || size < 1 || size > 20) errors.size = "Size must be between 1 and 20";
-//     if (minLat !== undefined && (isNaN(minLat) || minLat < -90 || minLat > 90)) errors.minLat = "Minimum latitude is invalid";
-//     if (maxLat !== undefined && (isNaN(maxLat) || maxLat < -90 || maxLat > 90)) errors.maxLat = "Maximum latitude is invalid";
-//     if (minLng !== undefined && (isNaN(minLng) || minLng < -180 || minLng > 180)) errors.minLng = "Minimum longitude is invalid";
-//     if (maxLng !== undefined && (isNaN(maxLng) || maxLng < -180 || maxLng > 180)) errors.maxLng = "Maximum longitude is invalid";
-//     if (minPrice !== undefined && (isNaN(minPrice) || minPrice < 0)) errors.minPrice = "Minimum price must be greater than or equal to 0";
-//     if (maxPrice !== undefined && (isNaN(maxPrice) || maxPrice < 0)) errors.maxPrice = "Maximum price must be greater than or equal to 0";
-
-//     // If there are errors, respond with a 400 status
-//     if (Object.keys(errors).length > 0) {
-//         return res.status(400).json({
-//             message: "Bad Request",
-//             errors
-//         });
-//     }
-
-//     const spots = await Spot.findAll({
-//         where: {
-//             lat: { [Op.between]: [minLat || -90, maxLat || 90] },
-//             lng: { [Op.between]: [minLng || -180, maxLng || 180] },
-//             price: { [Op.between]: [minPrice || 0, maxPrice || Number.MAX_SAFE_INTEGER] }
-//         },
-//         limit: size,
-//         offset: (page - 1) * size,
-//         include: [
-//             {
-//                 model: SpotImage,
-//                 attributes: ['url', 'preview']
-//             },
-//             {
-//                 model: Review,
-//                 attributes: ['stars'],
-//                 required: false
-//             }
-//         ]
-//     });
-
-//     let spotsList = spots.map(spot => spot.toJSON());
-
-//     // Process each spot to include avgRating and previewImage
-//     spotsList.forEach(spot => {
-//         // Calculate preview image
-//         spot.SpotImages.forEach(image => {
-//             if (image.preview === true) {
-//                 spot.previewImage = image.url;
-//             }
-//         });
-//         if (!spot.previewImage) {
-//             spot.previewImage = 'No preview image available';
-//         }
-//         delete spot.SpotImages;
-
-//         // Calculate average rating
-//         let totalStars = 0;
-//         let reviewCount = 0;
-//         spot.Reviews.forEach(review => {
-//             totalStars += review.stars;
-//             reviewCount++;
-//         });
-
-//         if (reviewCount > 0) {
-//             spot.avgRating = parseFloat((totalStars / reviewCount).toFixed(1));
-//         } else {
-//             spot.avgRating = null;
-//         }
-
-//         delete spot.Reviews;
-//     });
-//     res.json({ Spots: spotsList, page, size });
-// });
+    res.json({ Spots: spotsList, page, size });
+});
 
 
 
