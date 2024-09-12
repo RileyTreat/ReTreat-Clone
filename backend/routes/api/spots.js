@@ -664,7 +664,7 @@ router.post('/:spotId/bookings', requireAuth, async (req,res)=>{
         };
 
 
-        res.status(200).json(formattedBooking);
+        res.status(201).json(formattedBooking);
     } catch (error) {
         return res.status(500).json({
             message: "Internal Server Error",
