@@ -524,7 +524,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res)=>{
             },
             {
                 model: Booking,
-                attributes: ['id', 'userId', 'startDate', 'endDate', 'createdAt', 'updatedAt'],
+                attributes: ['id', 'spotId', 'userId', 'startDate', 'endDate', 'createdAt', 'updatedAt'],
                 include: [
                     {
                         model: User,
