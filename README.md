@@ -1,6 +1,8 @@
 
 # ReTreat-Clone
 
+https://retreat-clone.onrender.com
+
 ## Database Schema Design
 
 ![airbnb-database-schema]
