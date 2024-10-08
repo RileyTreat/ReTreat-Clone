@@ -6,17 +6,19 @@ import { restoreCSRF, csrfFetch } from './store/csrf';
 import App from './App';
 import './index.css';
 
+import * as sessionActions from './store/session';
+
 import configureStore from './store';
 
 const store = configureStore();
 
-// ... const store = configureStore();
 
 if (import.meta.env.MODE !== 'production') {
   restoreCSRF();
 
   window.csrfFetch = csrfFetch;
   window.store = store;
+  window.sessionActions = sessionActions;
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(
