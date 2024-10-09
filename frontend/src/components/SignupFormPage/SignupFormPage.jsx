@@ -48,7 +48,7 @@ function SignupFormPage() {
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          Email
+          Email:
           <input
             type="text"
             value={email}
@@ -58,7 +58,7 @@ function SignupFormPage() {
         </label>
         {errors.email && <p>{errors.email}</p>}
         <label>
-          Username
+          Username:
           <input
             type="text"
             value={username}
@@ -68,7 +68,7 @@ function SignupFormPage() {
         </label>
         {errors.username && <p>{errors.username}</p>}
         <label>
-          First Name
+          First Name:
           <input
             type="text"
             value={firstName}
@@ -78,7 +78,7 @@ function SignupFormPage() {
         </label>
         {errors.firstName && <p>{errors.firstName}</p>}
         <label>
-          Last Name
+          Last Name:
           <input
             type="text"
             value={lastName}
@@ -88,7 +88,7 @@ function SignupFormPage() {
         </label>
         {errors.lastName && <p>{errors.lastName}</p>}
         <label>
-          Password
+          Password:
           <input
             type="password"
             value={password}
