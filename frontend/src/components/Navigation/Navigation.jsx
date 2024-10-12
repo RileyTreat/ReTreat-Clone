@@ -11,8 +11,15 @@ function Navigation({ isLoaded }) {
   return (
     <ul className="navigationHeader">
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/" >
+          <img src="/logo.png" className="logo" />
+        </NavLink>
       </li>
+      {sessionUser &&(
+      <li>
+          <NavLink to="/spots/new">Create a New Spot</NavLink>
+        </li>
+      )}
       {isLoaded && (
         <li>
           <ProfileButton user={sessionUser} />
@@ -23,4 +30,3 @@ function Navigation({ isLoaded }) {
 }
 
 export default Navigation;
-
