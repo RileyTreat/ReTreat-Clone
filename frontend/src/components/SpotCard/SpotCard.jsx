@@ -10,7 +10,7 @@ const [showTooltip, setShowTooltip] = useState(false);
       navigate(`/spots/${spot.id}`);
     };
 
-    console.log(`Spot ID: ${spot.id}, Avg Rating: ${spot.avgRating}`);
+    //console.log(`Spot ID: ${spot.id}, Avg Rating: ${spot.avgRating}`);
 
     return (
         <div
@@ -30,7 +30,6 @@ const [showTooltip, setShowTooltip] = useState(false);
         </div>
   
         <div className="spot-details">
-          <h3>{spot.name}</h3>
           <p>{spot.city}, {spot.state}</p>
           <p>${spot.price} / night</p>
           <p>{spot.avgRating ? `⭐${spot.avgRating}` : 'New'}</p>
