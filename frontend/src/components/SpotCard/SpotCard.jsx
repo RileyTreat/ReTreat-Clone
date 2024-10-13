@@ -1,17 +1,41 @@
-import React from "react";
+import React, {useState} from "react";
+import { useNavigate } from 'react-router-dom';
+import './SpotCard.css'
 
 const SpotCard = ({ spot }) => {
-    console.log('HELLO', spot)
+const navigate = useNavigate();
+const [showTooltip, setShowTooltip] = useState(false);
+
+    const handleClick = () => {
+      navigate(`/spots/${spot.id}`);
+    };
+
+    console.log(`Spot ID: ${spot.id}, Avg Rating: ${spot.avgRating}`);
+
     return (
-        <div key={spot.id} className="spot-card">
-            <img src={spot.previewImage} alt={spot.name} className="spot-image" />
-            <div className="spot-details">
-                <h3>{spot.name}</h3>
-                <p>{spot.city}, {spot.state}</p>
-                <p>Price: ${spot.price} / night</p>
-                <p>Rating: ⭐{spot.avgRating}</p>
-            </div>
+        <div
+        className="spot-card"
+        onClick={handleClick}
+        onMouseEnter={() => setShowTooltip(true)}
+        onMouseLeave={() => setShowTooltip(false)}
+        style={{ cursor: 'pointer' }}
+      >
+        <div className="image-wrapper">
+          <img
+            src={spot.previewImage}
+            alt={spot.name}
+            className="spot-image"
+          />
+          {showTooltip && <div className="tooltip">{spot.name}</div>}
         </div>
+  
+        <div className="spot-details">
+          <h3>{spot.name}</h3>
+          <p>{spot.city}, {spot.state}</p>
+          <p>${spot.price} / night</p>
+          <p>{spot.avgRating ? `⭐${spot.avgRating}` : 'New'}</p>
+        </div>
+      </div>
     )
 }
 

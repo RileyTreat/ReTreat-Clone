@@ -14,7 +14,7 @@ const [isLoaded, setIsLoaded] = useState(false);
 //         dispatch(loadAllSpots())
     
 // },[dispatch])
-console.log(spots)
+
 
 useEffect(() => {
     if (!isLoaded) {
@@ -27,7 +27,7 @@ useEffect(() => {
 
     return(
         <>
-            <div>
+            <div className="spot-list">
                 {spots &&
                  spots.map((spot) =>(
                     <SpotCard key={spot.id} spot={spot} />

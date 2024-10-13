@@ -54,7 +54,6 @@ export const loadAllSpots = () => async (dispatch) => {
     });
     if(response.ok){
         const data= await response.json();
-        console.log(data, 'WHATSUP')
          dispatch(readAllSpots(data.Spots));
     }
     return response;
@@ -81,7 +80,7 @@ const spotReducer = (state = initialState, action) => {
         case READ_SPOT:
             return {};
         case READ_ALL_SPOTS:
-             console.log('HIIII', action)
+            // console.log('HIIII', action)
             const spots= {}
             if(action.spots) 
                 action.spots.forEach(spot => {spots[spot.id] = spot})
