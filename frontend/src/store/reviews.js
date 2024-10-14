@@ -30,6 +30,7 @@ export const createReviewsThunk = (spotId, payload) => async (dispatch) => {
     if(response.ok){
         const data = await response.json();
         dispatch(createReviews(data))
+        return data
     }
 }
 
