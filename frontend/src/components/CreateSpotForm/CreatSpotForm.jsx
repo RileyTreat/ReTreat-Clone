@@ -16,10 +16,13 @@ const CreateSpotForm = ()=> {
   const [description, setDescription] = useState('')
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
-  const [lat, setLat] = useState(0);
-  const [lng, setLng] = useState(0);
+  // const [lat, setLat] = useState(0);
+  // const [lng, setLng] = useState(0);
   const [previewImage, setPreviewImage] = useState('')
-  const [imageUrls, setImageUrls] = useState('')
+  const [imageUrl1, setImageUrl1] = useState("");
+  const [imageUrl2, setImageUrl2] = useState("");
+  const [imageUrl3, setImageUrl3] = useState("");
+  const [imageUrl4, setImageUrl4] = useState("");
   const [formErrors, setFormErrors] = useState({})
   const [hasSubmitted, setHasSubmitted]= useState(false)
 
@@ -34,15 +37,18 @@ const CreateSpotForm = ()=> {
       if(!name) errors.name = 'Name is required'
       if(!price) errors.price = 'Price is required'
       if(!previewImage) errors.previewImage = 'Preview image is required'
-      if(!imageUrls || !/\.jpg|\.jpeg|\.png$/i.test(imageUrls)) errors.imageUrls = 'Image URL must end in .png .jpg or .jpeg'
-      if (lat && (lat > 90 || lat < -90)) {
-        errors.lat = "Latitude must be within -90 and 90";
-      }
-      if (lng && (lng > 180 || lat < -180)) {
-        errors.lng = "Longitude must be within -180 and 180";
-      }
+      if(!imageUrl1 || !/\.jpg|\.jpeg|\.png$/i.test(imageUrl1)) errors.imageUrl1 = 'Image URL must end in .png .jpg or .jpeg'
+      if(!imageUrl2 || !/\.jpg|\.jpeg|\.png$/i.test(imageUrl2)) errors.imageUrl2 = 'Image URL must end in .png .jpg or .jpeg'
+      if(!imageUrl3 || !/\.jpg|\.jpeg|\.png$/i.test(imageUrl3)) errors.imageUrl3 = 'Image URL must end in .png .jpg or .jpeg'
+      if(!imageUrl4 || !/\.jpg|\.jpeg|\.png$/i.test(imageUrl4)) errors.imageUrl4 = 'Image URL must end in .png .jpg or .jpeg'
+      // if (lat && (lat > 90 || lat < -90)) {
+      //   errors.lat = "Latitude must be within -90 and 90";
+      // }
+      // if (lng && (lng > 180 || lat < -180)) {
+      //   errors.lng = "Longitude must be within -180 and 180";
+      // }
      setFormErrors(errors)}
-  }, [hasSubmitted, country, address, city, state, description, name, price, previewImage, imageUrls, lat, lng])
+  }, [hasSubmitted, country, address, city, state, description, name, price, previewImage, imageUrl1, imageUrl2, imageUrl3, imageUrl4 ]) //lat, lng
   
   
   
@@ -54,8 +60,8 @@ const CreateSpotForm = ()=> {
       city, 
       state, 
       country,
-      lat,
-      lng,
+      // lat,
+      // lng,
       name,
       description, 
       price
@@ -131,7 +137,7 @@ const CreateSpotForm = ()=> {
             value={lat}
             onChange={(e) =>setLat(e.target.value)}
             />
-            {formErrors.state && <p className="error">{formErrors.state}</p>}
+            {formErrors.lat && <p className="error">{formErrors.lat}</p>}
         </div>
 
         <div>
@@ -142,8 +148,8 @@ const CreateSpotForm = ()=> {
             value={lat}
             onChange={(e) =>setLng(e.target.value)}
             />
-            {formErrors.state && <p className="error">{formErrors.state}</p>}
-        </div> */}
+            {formErrors.lng && <p className="error">{formErrors.lng}</p>}
+        </div>  */}
 
         <div className="form-section">
           <h2>Describe your place to guests</h2>
@@ -207,40 +213,40 @@ const CreateSpotForm = ()=> {
               <input
                 type="text"
                 placeholder="Image URL"
-                value={imageUrls}
-                onChange={(e) => setImageUrls( e.target.value)}
+                value={imageUrl1}
+                onChange={(e) => setImageUrl1( e.target.value)}
               />
-              {formErrors.imageUrls && <p className="error">{formErrors.imageUrls}</p>}
+              {formErrors.imageUrl1 && <p className="error">{formErrors.imageUrl1}</p>}
             </div>
             <div  className="form-group">
      
               <input
                 type="text"
                 placeholder="Image URL"
-                value={imageUrls}
-                onChange={(e) => setImageUrls( e.target.value)}
+                value={imageUrl2}
+                onChange={(e) => setImageUrl2( e.target.value)}
               />
-              {formErrors.imageUrls && <p className="error">{formErrors.imageUrls}</p>}
+              {formErrors.imageUrls && <p className="error">{formErrors.imageUrl2}</p>}
             </div>
             <div  className="form-group">
           
               <input
                 type="text"
                 placeholder="Image URL"
-                value={imageUrls}
-                onChange={(e) => setImageUrls( e.target.value)}
+                value={imageUrl3}
+                onChange={(e) => setImageUrl3( e.target.value)}
               />
-              {formErrors.imageUrls && <p className="error">{formErrors.imageUrls}</p>}
+              {formErrors.imageUrl3 && <p className="error">{formErrors.imageUrl3}</p>}
             </div>
             <div  className="form-group">
       
               <input
                 type="text"
                 placeholder="Image URL"
-                value={imageUrls}
-                onChange={(e) => setImageUrls( e.target.value)}
+                value={imageUrl4}
+                onChange={(e) => setImageUrl4( e.target.value)}
               />
-              {formErrors.imageUrls && <p className="error">{formErrors.imageUrls}</p>}
+              {formErrors.imageUrl4 && <p className="error">{formErrors.imageUrl4}</p>}
             </div>
        
         </div>
