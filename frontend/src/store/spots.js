@@ -21,11 +21,12 @@ const createSpot = (newSpot) => {
 //     payload: spot,
 // });
 
-// const readSpot = () => {
-//     return{
-//         type: READ_SPOT,
-//     }
-// }
+const readSpot = (spot) => {
+    return{
+        type: READ_SPOT,
+        spot
+    }
+}
 
 const readAllSpots = (spots) => {
     return{
@@ -66,6 +67,16 @@ export const loadAllSpots = () => async (dispatch) => {
     }
     return response;
   };
+
+  export const readSpotThunk = (id) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${id}`,{
+        method: 'GET'
+    })
+    if(response.ok){
+        const data = await response.json()
+        dispatch(readSpot(data))
+    }
+  }
 
 //   export const loadSpot = () => async (dispatch) => {
 //     const response = await csrfFetch(`/api/spots/${spotId}`, {
@@ -114,7 +125,9 @@ const spotReducer = (state = initialState, action) => {
             newState[action.payload.id] = {...action.payload};
             return newState;
         case READ_SPOT:
-            return {};
+            newState = {...state}
+            newState[action.payload.id] = action.payload
+            return newState;
         case READ_ALL_SPOTS:
             // console.log('HIIII', action)
             const spots= {}
