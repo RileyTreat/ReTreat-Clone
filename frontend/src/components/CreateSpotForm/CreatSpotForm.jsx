@@ -62,9 +62,12 @@ const CreateSpotForm = ()=> {
     }
     // console.log(spotData)
     // dispatch(createSpotThunk(spotData))
-    await dispatch(createSpotThunk(spotData)).then((newSpot) => {
-      navigate(`/spots/${newSpot.id}`)
-    })
+    if(previewImage !== ""){
+      await dispatch(createSpotThunk(spotData)).then((newSpot) => {
+        navigate(`/spots/${newSpot.id}`)
+      })
+    }
+
   }
 
   return (
@@ -106,6 +109,7 @@ const CreateSpotForm = ()=> {
             />
             {formErrors.city && <p className="error">{formErrors.city}</p>}
           </div>
+          <p>,</p>
 
           <div className="form-group">
             <label>State</label>
@@ -184,12 +188,12 @@ const CreateSpotForm = ()=> {
             {formErrors.price && <p className="error">{formErrors.price}</p>}
           </div>
         </div>
-      {/*  
+       
         <div className="form-section">
           <h2>Liven up your spot with photos</h2>
           <p>Submit a link to at least one photo to publish your spot.</p>
           <div className="form-group">
-            <label>Preview Image URL</label>
+          
             <input
               type="text"
               placeholder="Preview Image URL"
@@ -240,7 +244,7 @@ const CreateSpotForm = ()=> {
             </div>
        
         </div>
-         */}
+       
         <button type="submit" onClick={e => handleSubmit(e)}>Create Spot</button>
         {/* {formErrors && <p>{formErrors}</p>} */}
       </form>
