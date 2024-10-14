@@ -2,18 +2,24 @@ import { csrfFetch } from './csrf';
 
 //Action types
 const CREATE_SPOT = "spots/createSpot"
+
 const READ_SPOT = "spots/readSpot"
 const READ_ALL_SPOTS = "spots/readAllSpots"
 const UPDATE_SPOT = "spots/updateSpot"
 const DELETE_SPOT = "spots/deleteSpot"
 
 //Action Creators
-// const createSpot = (spot) => {
-//     return{
-//         type: CREATE_SPOT,
-//         payload: spot
-//     }
-// }
+const createSpot = (newSpot) => {
+    return{
+        type: CREATE_SPOT,
+        payload: newSpot
+    }
+}
+
+// const createSpotImage = (spot) => ({
+//     type: CREATE_SPOT_IMAGE,
+//     payload: spot,
+// });
 
 // const readSpot = () => {
 //     return{
@@ -48,6 +54,8 @@ const readAllSpots = (spots) => {
 //     }
 // }
 
+//THUNKS
+
 export const loadAllSpots = () => async (dispatch) => {
     const response = await csrfFetch('/api/spots', {
       method: 'GET'
@@ -71,12 +79,53 @@ export const loadAllSpots = () => async (dispatch) => {
 //     return response;
 //   }; 
 
-const initialState = {}
+export const createSpotThunk = (spotData) => async (dispatch) => {
+
+        const response = await csrfFetch('/api/spots', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(spotData),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to create spot');
+        }
+
+        const newSpot = await response.json();
+        dispatch(createSpot(newSpot));
+        return newSpot;
+
+};
+
+export const createSpotImageThunk = (spotData) => async (dispath) => {
+    const response = await csrfFetch(`/api/spots/&{id}/images`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(spotData),
+    });
+
+    if(response.ok){
+        const newImage = await response.json()
+        dispatch(createSpot(newImage))
+    }
+}
+
+  const initialState = {}
+//  const initialState = {
+//     spots: { error: null },
+//     isLoaded: false,
+//     current: { isLoaded: false, error: null },
+//   };
+
+
 const spotReducer = (state = initialState, action) => {
  
     switch(action.type){
         case CREATE_SPOT:
-            return {};
+            const newState = { ...state };
+            newState[action.payload.id] = {...action.payload};
+            return newState;
         case READ_SPOT:
             return {};
         case READ_ALL_SPOTS:
@@ -90,6 +139,9 @@ const spotReducer = (state = initialState, action) => {
             return {};
         case DELETE_SPOT:
             return {};
+        // case CREATE_SPOT_ERROR: {
+        //     return { ...state, error: action.error };
+        //     }
         default:
             return state;
     }
