@@ -16,8 +16,8 @@ const CreateSpotForm = ()=> {
   const [description, setDescription] = useState('')
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
-  // const [lat, setLat] = useState(0);
-  // const [lng, setLng] = useState(0);
+  const lat = 0;
+  const lng =0;
   const [previewImage, setPreviewImage] = useState('')
   const [imageUrl1, setImageUrl1] = useState("");
   const [imageUrl2, setImageUrl2] = useState("");
@@ -60,19 +60,58 @@ const CreateSpotForm = ()=> {
       city, 
       state, 
       country,
-      // lat,
-      // lng,
+      lat,
+      lng,
       name,
       description, 
       price
     }
     // console.log(spotData)
     // dispatch(createSpotThunk(spotData))
-    if(previewImage !== ""){
-      await dispatch(createSpotThunk(spotData)).then((newSpot) => {
-        navigate(`/spots/${newSpot.id}`)
+    // if(previewImage !== ""){
+    //   await dispatch(createSpotThunk(spotData)).then((newSpot) => {
+    //     navigate(`/spots/${newSpot.id}`)
+    //   })
+    // }
+    
+
+        if(previewImage !==""){
+    dispatch(createSpotThunk(spotData))
+      .then((data) =>{
+        dispatch(createSpotImageThunk(data.id, {url: previewImage, preview: true}))
+        return data
+      })
+      .then((data)=>{
+        if(imageUrl1){
+        dispatch(createSpotImageThunk(data.id, {url: imageUrl1, preview: true}))
+        }
+          return data
+      })
+      .then((data)=>{
+        if(imageUrl2){
+        dispatch(createSpotImageThunk(data.id, {url: imageUrl2, preview: true}))
+        }
+          return data
+      })
+      .then((data)=>{
+        if(imageUrl3){
+        dispatch(createSpotImageThunk(data.id, {url: imageUrl3, preview: true}))
+        }
+          return data
+      })
+      .then((data)=>{
+        if(imageUrl4){
+        dispatch(createSpotImageThunk(data.id, {url: imageUrl4, preview: true}))
+        }
+          return data
+          
+      })
+      .then((data)=>{
+        navigate(`/spots/${data.id}`)
       })
     }
+
+    
 
   }
 
@@ -226,7 +265,7 @@ const CreateSpotForm = ()=> {
                 value={imageUrl2}
                 onChange={(e) => setImageUrl2( e.target.value)}
               />
-              {formErrors.imageUrls && <p className="error">{formErrors.imageUrl2}</p>}
+              {formErrors.imageUrl2 && <p className="error">{formErrors.imageUrl2}</p>}
             </div>
             <div  className="form-group">
           
