@@ -83,25 +83,25 @@ const CreateSpotForm = ()=> {
       })
       .then((data)=>{
         if(imageUrl1){
-        dispatch(createSpotImageThunk(data.id, {url: imageUrl1, preview: true}))
+        dispatch(createSpotImageThunk(data.id, {url: imageUrl1, preview: false}))
         }
           return data
       })
       .then((data)=>{
         if(imageUrl2){
-        dispatch(createSpotImageThunk(data.id, {url: imageUrl2, preview: true}))
+        dispatch(createSpotImageThunk(data.id, {url: imageUrl2, preview: false}))
         }
           return data
       })
       .then((data)=>{
         if(imageUrl3){
-        dispatch(createSpotImageThunk(data.id, {url: imageUrl3, preview: true}))
+        dispatch(createSpotImageThunk(data.id, {url: imageUrl3, preview: false}))
         }
           return data
       })
       .then((data)=>{
         if(imageUrl4){
-        dispatch(createSpotImageThunk(data.id, {url: imageUrl4, preview: true}))
+        dispatch(createSpotImageThunk(data.id, {url: imageUrl4, preview: false}))
         }
           return data
           
