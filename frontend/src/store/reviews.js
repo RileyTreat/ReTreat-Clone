@@ -58,6 +58,15 @@ export const deleteReviewsThunk = (reviewId) => async (dispatch) => {
     }
 }
 
+//   export const getReviewsBySpotIdThunk = (spotId) => async(dispatch) => {
+//     const response = await csrfFetch(`/api/spots/${spotId}/reviews`);
+  
+//     if (response.ok) {
+//       const data = await res.json();
+//       dispatch(loadReviews(data.Reviews));
+//       return ressponse;
+//     }
+//   }
 
 const initialState = {}
 
@@ -67,6 +76,10 @@ const reviewsReducer = (state= initialState, action) => {
         case CREATE_REVIEWS:
             return newState;
         case READ_REVIEWS:
+            newState = {...state};
+            action.payload.Reviews.forEach(
+              (review) => (newState[review.id] = review)
+            );
             return newState;
         case DELETE_REVIEWS:
             return newState;

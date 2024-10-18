@@ -2,11 +2,11 @@ import { csrfFetch } from './csrf';
 
 //Action types
 const CREATE_SPOT = "spots/createSpot"
-
 const READ_SPOT = "spots/readSpot"
 const READ_ALL_SPOTS = "spots/readAllSpots"
-const UPDATE_SPOT = "spots/updateSpot"
+// const UPDATE_SPOT = "spots/updateSpot"
 const DELETE_SPOT = "spots/deleteSpot"
+//const LOAD_REVIEWS = 'spot/load_reviews'
 
 //Action Creators
 const createSpot = (newSpot) => {
@@ -16,10 +16,6 @@ const createSpot = (newSpot) => {
     }
 }
 
-// const createSpotImage = (spot) => ({
-//     type: CREATE_SPOT_IMAGE,
-//     payload: spot,
-// });
 
 const readSpot = (spot) => {
     return{
@@ -42,12 +38,19 @@ const readAllSpots = (spots) => {
 //     }
 // }
 
-// const deleteSpot = (spotId) => {
-//     return{
-//         type: DELETE_SPOT,
-//         payload: spotId
+const deleteSpot = (spotId) => {
+    return{
+        type: DELETE_SPOT,
+        payload: spotId
+    }
+}
+// const loadReviews = (spotId) => {
+//     return {
+//       type: LOAD_REVIEWS,
+//       spotId
 //     }
-// }
+//   }
+
 
 // const = () => {
 //     return{
@@ -72,42 +75,73 @@ export const loadAllSpots = () => async (dispatch) => {
     const response = await csrfFetch(`/api/spots/${id}`,{
         method: 'GET'
     })
+    //console.log("HIIII", id)
     if(response.ok){
         const data = await response.json()
+         //  console.log("DATAA", data)
         dispatch(readSpot(data))
+       // console.log("RESPONSE", response)
+        return data 
+   
+   
+    }
+   
+  }
+
+  export const createSpotThunk = (spotData) => async (dispatch) => {
+
+    const response = await csrfFetch('/api/spots', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(spotData),
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to create spot');
+    }
+
+    const newSpot = await response.json();
+    dispatch(createSpot(newSpot));
+    return newSpot;
+};
+
+  export const updateSpotThunk = (id, payload) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${id}`,{
+        method: 'PUT',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(payload)
+    })
+    if(response.ok){
+        const data = await response.json()
+        dispatch(updateSpot(data))
+        return data
     }
   }
 
-//   export const loadSpot = () => async (dispatch) => {
-//     const response = await csrfFetch(`/api/spots/${spotId}`, {
-//       method: 'GET'
-//     });
-//     if(response.ok){
-//         const data= await response.json();
-//         // console.log(data)
-//          dispatch(loadSpot(data));
+//   export const getReviewsBySpotIdThunk = (spotId) => async(dispatch) => {
+//     const response = await csrfFetch(`/api/spots/${spotId}/reviews`);
+  
+//     if (response.ok) {
+//       const data = await res.json();
+//       dispatch(loadReviews(data.Reviews));
+//       return response;
 //     }
-//     return response;
-//   }; 
+//   }
 
-export const createSpotThunk = (spotData) => async (dispatch) => {
+export const deleteSpotThunk = (id) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${id}`, {
+      method: 'DELETE'
+    });
+    if(response.ok){
+        //const data= await response.json();
+        // console.log(data)
+         dispatch(deleteSpot(id));
+    }
+    return response;
+  }; 
 
-        const response = await csrfFetch('/api/spots', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(spotData),
-        });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Failed to create spot');
-        }
-
-        const newSpot = await response.json();
-        dispatch(createSpot(newSpot));
-        return newSpot;
-
-};
 
   const initialState = {}
 //  const initialState = {
@@ -121,12 +155,12 @@ const spotReducer = (state = initialState, action) => {
  
     switch(action.type){
         case CREATE_SPOT:
-            const newState = { ...state };
+             newState = { ...state };
             newState[action.payload.id] = {...action.payload};
             return newState;
         case READ_SPOT:
-            newState = {...state}
-            newState[action.payload.id] = action.payload
+            const newState = {...state}
+            newState[action.spot.id] = {...action.spot}
             return newState;
         case READ_ALL_SPOTS:
             // console.log('HIIII', action)
@@ -134,14 +168,18 @@ const spotReducer = (state = initialState, action) => {
             if(action.spots) 
                 action.spots.forEach(spot => {spots[spot.id] = spot})
             return spots
-            
-        case UPDATE_SPOT:
-            return {};
+        // case UPDATE_SPOT:
+        //     return {
+        //         ...state, 
+        //         [action.payload.id]: action.payload
+        //     };
         case DELETE_SPOT:
-            return {};
-        // case CREATE_SPOT_ERROR: {
-        //     return { ...state, error: action.error };
-        //     }
+            newState = {...state}
+            delete newState[action.id]
+            return newState;
+            // case LOAD_REVIEWS: 
+            //     newState = {...state, Reviews: action.spotId};
+            //     return newState
         default:
             return state;
     }
