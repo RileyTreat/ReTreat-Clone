@@ -8,7 +8,7 @@ const createReviews = (payload) => ({
     type: CREATE_REVIEWS,
     payload
 })
-const readReviews= (payload) => ({
+const readReviews = (payload) => ({
     type: READ_REVIEWS,
     payload
 })
@@ -41,7 +41,10 @@ export const readReviewsThunk = (spotId) => async (dispatch) => {
 
     if(response.ok){
         const data = await response.json();
-        dispatch(readReviews(data))
+        //console.log('REVIEWS', data.Reviews)
+        dispatch(readReviews(data.Reviews))
+        
+        return data
     }
 }
 
@@ -72,16 +75,22 @@ const initialState = {}
 
 const reviewsReducer = (state= initialState, action) => {
     let newState;
-    switch(action.types) {
+    switch(action.type) {
         case CREATE_REVIEWS:
+            newState = { ...state };
+            newState[action.payload.id] = {...action.payload};
             return newState;
         case READ_REVIEWS:
-            newState = {...state};
-            action.payload.Reviews.forEach(
+            newState = {};
+           // console.log('PAYLOAD')
+            action.payload.forEach(
               (review) => (newState[review.id] = review)
             );
             return newState;
         case DELETE_REVIEWS:
+            newState = { ...state };
+            delete newState[action.payload] //was.id
+            //console.log("ACTION", action.id)
             return newState;
         default:
             return state;

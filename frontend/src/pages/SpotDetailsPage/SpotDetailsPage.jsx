@@ -4,6 +4,9 @@ import { useParams } from "react-router-dom"
 import { readSpotThunk } from "../../store/spots"
 import { readReviewsThunk } from "../../store/reviews"
 import SpotInfo from "../../components/SpotInfo/SpotInfo"
+import ReviewInfo from "../../components/ReviewsInfo/ReviewInfo"
+
+
 const SpotDetailsPage = () =>{
     const dispatch = useDispatch()
     const {spotId} = useParams()
@@ -25,12 +28,13 @@ const SpotDetailsPage = () =>{
           });
       }, [dispatch, spotId]);
 
-console.log("SPOTDETA", spotDetails)
+//console.log("SPOTDETA", spotDetails)
 
 
     return isLoaded ? (
         <div className="page">
             <SpotInfo spotDetails={spotDetails[spotId]}/>
+            <ReviewInfo spotDetails={spotDetails[spotId]} currUser={currUser} spotId={spotId}/>
         </div>
           
  

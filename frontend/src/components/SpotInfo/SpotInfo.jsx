@@ -31,7 +31,7 @@ const {
         <div className="details-container">
           <div className="details-text">
             <h2 className="spot-host">
-          Hosted by {Owner.firstName} {Owner.lastName} 
+                Hosted by {Owner.firstName} {Owner.lastName} 
             </h2>
            <p className="spot-description">{description}</p>
           </div>
