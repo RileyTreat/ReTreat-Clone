@@ -176,7 +176,7 @@ const spotReducer = (state = initialState, action) => {
         //     };
         case DELETE_SPOT:
             newState = {...state}
-            delete newState[action.id]
+            delete newState[action.spotId]
             return newState;
             // case LOAD_REVIEWS: 
             //     newState = {...state, Reviews: action.spotId};

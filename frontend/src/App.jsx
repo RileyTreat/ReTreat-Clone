@@ -7,6 +7,7 @@ import CreateSpotForm from './components/CreateSpotForm';
 import LandingPage from './pages/landingPage';
 import UpdateSpotForm from './pages/UpdateSpotPage';
 import SpotDetailsPage from './pages/SpotDetailsPage/SpotDetailsPage';
+import ManageSpotsPage from './pages/ManageSpotPage';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/spots/current',
-        element: <h1>manage your spot</h1>
+        element: <ManageSpotsPage />
       },
       {
         path: '/spots/:spotId/edit',

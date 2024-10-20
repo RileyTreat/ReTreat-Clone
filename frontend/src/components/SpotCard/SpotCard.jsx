@@ -32,7 +32,7 @@ const [showTooltip, setShowTooltip] = useState(false);
         <div className="spot-details">
           <p>{spot.city}, {spot.state}</p>
           <p>${spot.price} / night</p>
-          <p>{spot.avgRating ? `⭐${spot.avgRating}` : 'New'}</p>
+          <p>{spot.avgRating ? `⭐${spot.avgRating}` : '⭐New'}</p>
         </div>
       </div>
     )
