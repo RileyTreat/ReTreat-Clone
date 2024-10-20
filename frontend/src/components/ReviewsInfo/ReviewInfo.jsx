@@ -15,12 +15,12 @@ const ReviewInfo = ({ spotDetails , currUser, spotId }) => {
         name, numReviews, price,
         state} = spotDetails
     
-
+      // const { closeModal } = useModal();
     const [noReviews, setNoReviews] = useState(false);
     const reviews = Object.values(useSelector((state) => state.reviews))
-    const spotReviews = Object.values(useSelector((state) => state.reviews)).filter(
-        (review) => review.spotId === spotId
-    );
+    // const spotReviews = Object.values(useSelector((state) => state.reviews)).filter(
+    //     (review) => review.spotId === spotId
+    // );
     const userReviews = reviews.filter(
         (reviews) => reviews.userId === currUser?.id
       );  

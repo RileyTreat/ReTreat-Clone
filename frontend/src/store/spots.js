@@ -6,7 +6,7 @@ const READ_SPOT = "spots/readSpot"
 const READ_ALL_SPOTS = "spots/readAllSpots"
 // const UPDATE_SPOT = "spots/updateSpot"
 const DELETE_SPOT = "spots/deleteSpot"
-//const LOAD_REVIEWS = 'spot/load_reviews'
+
 
 //Action Creators
 const createSpot = (newSpot) => {
@@ -41,16 +41,9 @@ const readAllSpots = (spots) => {
 const deleteSpot = (spotId) => {
     return{
         type: DELETE_SPOT,
-        payload: spotId
+        spotId
     }
 }
-// const loadReviews = (spotId) => {
-//     return {
-//       type: LOAD_REVIEWS,
-//       spotId
-//     }
-//   }
-
 
 // const = () => {
 //     return{
@@ -119,15 +112,6 @@ export const loadAllSpots = () => async (dispatch) => {
     }
   }
 
-//   export const getReviewsBySpotIdThunk = (spotId) => async(dispatch) => {
-//     const response = await csrfFetch(`/api/spots/${spotId}/reviews`);
-  
-//     if (response.ok) {
-//       const data = await res.json();
-//       dispatch(loadReviews(data.Reviews));
-//       return response;
-//     }
-//   }
 
 export const deleteSpotThunk = (id) => async (dispatch) => {
     const response = await csrfFetch(`/api/spots/${id}`, {
@@ -138,7 +122,6 @@ export const deleteSpotThunk = (id) => async (dispatch) => {
         // console.log(data)
          dispatch(deleteSpot(id));
     }
-    return response;
   }; 
 
 
@@ -152,14 +135,14 @@ export const deleteSpotThunk = (id) => async (dispatch) => {
 
 
 const spotReducer = (state = initialState, action) => {
- 
+    let newState;
     switch(action.type){
         case CREATE_SPOT:
-             newState = { ...state };
+            newState = { ...state };
             newState[action.payload.id] = {...action.payload};
             return newState;
         case READ_SPOT:
-            const newState = {...state}
+            newState = {...state}
             console.log("update spot", action.spot)
             newState[action.spot.id] = {...action.spot}
             return newState;
@@ -178,9 +161,6 @@ const spotReducer = (state = initialState, action) => {
             newState = {...state}
             delete newState[action.spotId]
             return newState;
-            // case LOAD_REVIEWS: 
-            //     newState = {...state, Reviews: action.spotId};
-            //     return newState
         default:
             return state;
     }

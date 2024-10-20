@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import { useNavigate } from 'react-router-dom';
 //import { useModal } from '../../context/Modal';
 import OpenModalButton from '../OpenModalButton'
@@ -17,12 +17,15 @@ const ManageSpotCard = ({spot}) => { //{spot} needs to be spots with ownerId
             navigate(`/spots/${spot.id}/edit`);
           };
   
-    
-        const closeMenu = (e) => {
-            if (!ulRef.current.contains(e.target)) {
-              setShowMenu(false);
-            }
-          };
+          const handleModalClick = (e) => {
+            e.stopPropagation(); // Prevent card click behavior when opening modal
+        };
+
+        // const closeMenu = (e) => {
+        //     if (!ulRef.current.contains(e.target)) {
+        //       setShowMenu(false);
+        //     }
+        //   };
         //console.log(`Spot ID: ${spot.id}, Avg Rating: ${spot.avgRating}`);
     
         return (
@@ -53,14 +56,13 @@ const ManageSpotCard = ({spot}) => { //{spot} needs to be spots with ownerId
                         Update
                     </button>
                 </div>
-                <div>
-                {
+                <div onClick={handleModalClick}>            
                     <OpenModalButton
                       buttonText="Delete"
-                      onButtonClick={closeMenu}
-                      modalComponent={<ManageSpotDeleteModal  />}
-                    />
-                }
+                    //   onClick={handleModalClick}
+                    //   onButtonClick={closeMenu}
+                      modalComponent={<ManageSpotDeleteModal spotId={spot.id} />}
+                    />           
                 </div>
             </div>
           </div>

@@ -1,12 +1,12 @@
-import React from "react"
+//import React from "react"
 import { FaStar } from "react-icons/fa";
 
 const SpotInfo= ({ spotDetails  }) => {
 const {   
-    Owner, ownerId, SpotImages,
+    Owner, SpotImages,
     avgStarRating, city, country, description,
     name, numReviews, price,
-    state} = spotDetails
+    state} = spotDetails // ownerId,
 
 
     const handleClick = () => {

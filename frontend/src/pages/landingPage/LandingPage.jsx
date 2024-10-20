@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"; //useState,useContext
+import  { useEffect, useState } from "react"; //useState,useContext, , React
 import { useDispatch, useSelector } from "react-redux";
 import { loadAllSpots } from "../../store/spots";
 import SpotCard from "../../components/SpotCard";
@@ -22,7 +22,7 @@ useEffect(() => {
       dispatch(loadAllSpots()) 
         setIsLoaded(true); 
     }
-  }, [dispatch]);
+  }, [dispatch, setIsLoaded, isLoaded]);
 
 
     return(

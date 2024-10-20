@@ -13,10 +13,10 @@ const SpotDetailsPage = () =>{
     const [isLoaded, setIsLoaded] = useState(false)
     const spotDetails = useSelector(state => state.spots);
     const currUser = useSelector((state) => state.session.user);
-    const reviews = Object.values(useSelector((state) => state.reviews));
-    const review = reviews.filter(
-        (review) => review.userId === currUser?.id
-      );
+    // const reviews = Object.values(useSelector((state) => state.reviews));
+    // const review = reviews.filter(
+    //     (review) => review.userId === currUser?.id
+    //   );
 
       useEffect(() => {
         dispatch(readSpotThunk(spotId))

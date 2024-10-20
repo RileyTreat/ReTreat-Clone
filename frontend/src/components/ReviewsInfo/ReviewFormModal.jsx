@@ -34,7 +34,7 @@ function ReviewFormModal ({spotId}){
         if(reviewExists) errors.review = "review already exists for this spot"
 
         setErrors(errors);
-    }, [review, stars, sessionUser.id])
+    }, [review, stars, sessionUser.id, spotReviews])
 
     const handleSubmit= async (e) => {
         e.preventDefault()

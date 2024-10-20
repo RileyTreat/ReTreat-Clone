@@ -1,15 +1,24 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom"; //, useParams 
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import ManageSpotCard from "../../components/ManageSpotCard/ManageSpotCard";
+import { loadAllSpots } from "../../store/spots";
 
 const ManageSpotsPage = ()=>{
     const navigate = useNavigate()
+    const dispatch = useDispatch();
     const currUserId = useSelector((state) => state.session.user.id)
-    const {userId} = useParams()
+    //const {userId} = useParams()
     const spots = useSelector((state) => state.spots);
     const mySpots = Object.values(spots).filter((spot) => spot.ownerId === currUserId);
+    const [isLoaded, setIsLoaded] = useState(false);
   
+    useEffect(()=>{
+        if(!isLoaded){
+            dispatch(loadAllSpots(mySpots))
+            setIsLoaded(true)
+        }
+    }, [dispatch, setIsLoaded, isLoaded, mySpots])
 
     const handleNavigate = () => {
         navigate(`/spots/new`);

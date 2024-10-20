@@ -1,18 +1,18 @@
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux"; //, useSelector
 import { useModal } from '../../context/Modal';
-import * as reviewActions from '../../store/reviews';
+//import * as reviewActions from '../../store/reviews';
 import * as spotActions from '../../store/spots';
 
-const ManageSpotDeleteModal =() => {
+const ManageSpotDeleteModal =({spotId}) => {
     const dispatch = useDispatch()
     const { closeModal } = useModal();
-    const currSpotId = useSelector((state) => state.spots.id)
+
 
     const handleClickDelete = async (e) => {
         e.preventDefault();
     
-        await dispatch(reviewActions.deleteSpotThunk(currSpotId))
+        await dispatch(spotActions.deleteSpotThunk(spotId)).then(closeModal())
         // await dispatch(spotActions.readSpotThunk(spotId)).then(closeModal())
       };
 
