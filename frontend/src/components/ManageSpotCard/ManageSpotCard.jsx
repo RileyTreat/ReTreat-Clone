@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 //import { useModal } from '../../context/Modal';
 import OpenModalButton from '../OpenModalButton'
 import ManageSpotDeleteModal from "./ManagSpotDeleteModal";
+import { FaStar } from "react-icons/fa";
 import './ManageSpotCard.css'
 
 const ManageSpotCard = ({spot}) => { //{spot} needs to be spots with ownerId
@@ -48,7 +49,10 @@ const ManageSpotCard = ({spot}) => { //{spot} needs to be spots with ownerId
             <div className="spot-details">
               <p>{spot.city}, {spot.state}</p>
               <p>${spot.price} / night</p>
-              <p>{spot.avgRating ? `⭐${spot.avgRating.toFixed(1)}` : '⭐New'}</p>
+              <p>
+                    <FaStar />
+                    {spot.avgRating ? spot.avgRating.toFixed(1) : 'New'}
+                </p>
             </div>
             <div className="buttons">
                 <div>

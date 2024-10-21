@@ -1,5 +1,6 @@
 import {useState} from "react";
 import { useNavigate } from 'react-router-dom';
+import { FaStar } from "react-icons/fa";
 import './SpotCard.css'
 
 const SpotCard = ({ spot }) => {
@@ -32,7 +33,10 @@ const [showTooltip, setShowTooltip] = useState(false);
         <div className="spot-details">
           <p>{spot.city}, {spot.state}</p>
           <p>${spot.price} / night</p>
-          <p>{spot.avgRating ? `⭐${spot.avgRating.toFixed(1)}` : '⭐New'}</p>
+          <p>
+            <FaStar />
+            {spot.avgRating ? spot.avgRating.toFixed(1) : 'New'}
+          </p>
         </div>
       </div>
     )
