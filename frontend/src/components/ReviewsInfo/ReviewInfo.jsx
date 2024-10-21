@@ -57,7 +57,7 @@ const ReviewInfo = ({ spotDetails , currUser, spotId }) => {
         <div>
         <h3 className="spot-rating">
           <FaStar />
-          {avgStarRating ? Math.round(avgStarRating * 100) / 100 : "New"}{" "}
+          {avgStarRating ? avgStarRating.toFixed(1) : "New"}{" "}
           {numReviews ? "・" + numReviews : ""}{" "}
           {numReviews === 0 ? "" : numReviews > 1 ? "reviews" : "review"}
         </h3>

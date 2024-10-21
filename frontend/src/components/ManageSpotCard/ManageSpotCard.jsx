@@ -48,7 +48,7 @@ const ManageSpotCard = ({spot}) => { //{spot} needs to be spots with ownerId
             <div className="spot-details">
               <p>{spot.city}, {spot.state}</p>
               <p>${spot.price} / night</p>
-              <p>{spot.avgRating ? `⭐${spot.avgRating}` : '⭐New'}</p>
+              <p>{spot.avgRating ? `⭐${spot.avgRating.toFixed(1)}` : '⭐New'}</p>
             </div>
             <div className="buttons">
                 <div>

@@ -44,7 +44,7 @@ const {
                 <p className="callout-rating">
                   <FaStar />
                   {avgStarRating
-                    ? Math.round(avgStarRating * 100) / 100
+                    ? avgStarRating.toFixed(1) // ? Math.round(avgStarRating * 100) / 100
                     : "New"}{" "}
                   {numReviews ? "・" + numReviews : ""}{" "}
                   {numReviews === 0 ? "" : numReviews > 1 ? "reviews" : "review"}
