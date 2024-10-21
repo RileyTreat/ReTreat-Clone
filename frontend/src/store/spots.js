@@ -4,7 +4,7 @@ import { csrfFetch } from './csrf';
 const CREATE_SPOT = "spots/createSpot"
 const READ_SPOT = "spots/readSpot"
 const READ_ALL_SPOTS = "spots/readAllSpots"
-// const UPDATE_SPOT = "spots/updateSpot"
+const UPDATE_SPOT = "spots/updateSpot"
 const DELETE_SPOT = "spots/deleteSpot"
 
 
@@ -31,12 +31,12 @@ const readAllSpots = (spots) => {
     }
 }
 
-// const updateSpot = (spot) => {
-//     return{
-//         type: UPDATE_SPOT,
-//         payload: spot
-//     }
-// }
+const updateSpot = (spot) => {
+    return{
+        type: UPDATE_SPOT,
+        payload: spot
+    }
+}
 
 const deleteSpot = (spotId) => {
     return{
@@ -136,6 +136,7 @@ export const deleteSpotThunk = (id) => async (dispatch) => {
 
 const spotReducer = (state = initialState, action) => {
     let newState;
+    let spots;
     switch(action.type){
         case CREATE_SPOT:
             newState = { ...state };
@@ -148,15 +149,14 @@ const spotReducer = (state = initialState, action) => {
             return newState;
         case READ_ALL_SPOTS:
             // console.log('HIIII', action)
-            const spots= {}
+            spots= {}
             if(action.spots) 
                 action.spots.forEach(spot => {spots[spot.id] = spot})
             return spots
-        // case UPDATE_SPOT:
-        //     return {
-        //         ...state, 
-        //         [action.payload.id]: action.payload
-        //     };
+        case UPDATE_SPOT:
+            newState = { ...state };
+            newState[action.payload.id] = { ...action.payload };
+            return newState;
         case DELETE_SPOT:
             newState = {...state}
             delete newState[action.spotId]
