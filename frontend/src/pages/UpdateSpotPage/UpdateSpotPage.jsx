@@ -25,7 +25,7 @@ const UpdateSpotForm = () => {
   const [imageUrl4, setImageUrl4] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
-e
+
   useEffect(() => {
     if (spotId) {
       dispatch(readSpotThunk(spotId));

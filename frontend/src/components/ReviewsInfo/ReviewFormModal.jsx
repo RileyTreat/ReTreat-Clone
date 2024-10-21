@@ -34,7 +34,7 @@ function ReviewFormModal ({spotId}){
         if(reviewExists) errors.review = "review already exists for this spot"
 
         setErrors(errors);
-    }, [review, stars, sessionUser.id, spotReviews])
+    }, [review, stars, sessionUser.id])
 
     const handleSubmit= async (e) => {
         e.preventDefault()
@@ -100,7 +100,7 @@ function ReviewFormModal ({spotId}){
                 <span>Stars</span>
             </div>
             {errors.stars && <p>{errors.stars}</p>}
-                <button disabled={isDisabled} type="submit" className="review-submit-button">
+                <button disabled={isDisabled} type="submit" className="review-submit-button" onClick={closeModal}>
                     Submit Your Review
                 </button>
             </form>

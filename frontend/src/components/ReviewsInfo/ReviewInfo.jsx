@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import ReviewFormModal from "./ReviewFormModal";
 import OpenModalButton from '../OpenModalButton'
-import { useModal } from '../../context/Modal';
+//import { useModal } from '../../context/Modal';
 import ReviewDetails from "./ReviewDetails";
 
 
@@ -13,7 +13,7 @@ const ReviewInfo = ({ spotDetails , currUser, spotId }) => {
         Owner, ownerId, SpotImages,
         avgStarRating, city, country, description,
         name, numReviews, price,
-        state} = spotDetails
+        state} = spotDetails //
     
       // const { closeModal } = useModal();
     const [noReviews, setNoReviews] = useState(false);
@@ -31,11 +31,11 @@ const ReviewInfo = ({ spotDetails , currUser, spotId }) => {
     //   console.log('USERERRR', userReviews)
 
 
-      const closeMenu = (e) => {
-        if (!ulRef.current.contains(e.target)) {
-          setShowMenu(false);
-        }
-      };
+      // const closeMenu = (e) => {
+      //   if (!ulRef.current.contains(e.target)) {
+      //     setShowMenu(false);
+      //   }
+      // };
 
     //   useEffect(()=> {
     //     if (reviews.length){
@@ -69,7 +69,7 @@ const ReviewInfo = ({ spotDetails , currUser, spotId }) => {
             <div>
               <OpenModalButton
                 buttonText="Post Your Review"
-                onButtonClick={closeMenu}
+                //onButtonClick={closeMenu}
                 itemText="Post your review"
                 modalComponent={<ReviewFormModal spotId={spotId} />}
               />
@@ -83,7 +83,7 @@ const ReviewInfo = ({ spotDetails , currUser, spotId }) => {
                 {
                     <OpenModalButton
                       buttonText="Post Your Review!"
-                      onButtonClick={closeMenu}
+                      //onButtonClick={closeMenu}
                       modalComponent={<ReviewFormModal spotId={spotId} />}
                     />
                 }
@@ -101,9 +101,7 @@ const ReviewInfo = ({ spotDetails , currUser, spotId }) => {
             ))} 
           </div>
         </div>
-      </div>
-
-           
+      </div> 
     )
 }
 

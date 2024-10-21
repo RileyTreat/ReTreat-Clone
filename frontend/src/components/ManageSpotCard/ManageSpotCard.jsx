@@ -6,7 +6,7 @@ import ManageSpotDeleteModal from "./ManagSpotDeleteModal";
 import { FaStar } from "react-icons/fa";
 import './ManageSpotCard.css'
 
-const ManageSpotCard = ({spot}) => { //{spot} needs to be spots with ownerId
+const ManageSpotCard = ({spot}) => { 
     const navigate = useNavigate();
     const [showTooltip, setShowTooltip] = useState(false);
     
@@ -14,12 +14,12 @@ const ManageSpotCard = ({spot}) => { //{spot} needs to be spots with ownerId
           navigate(`/spots/${spot.id}`);
         };
         const handleUpdateClick = (e) => {
-            e.stopPropagation(); // Prevent card click behavior
+            e.stopPropagation(); 
             navigate(`/spots/${spot.id}/edit`);
           };
   
           const handleModalClick = (e) => {
-            e.stopPropagation(); // Prevent card click behavior when opening modal
+            e.stopPropagation(); 
         };
 
         // const closeMenu = (e) => {
