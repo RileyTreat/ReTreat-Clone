@@ -7,6 +7,7 @@ import ReviewDetails from "./ReviewDetails";
 
 
 
+
 const ReviewInfo = ({ spotDetails , currUser, spotId }) => {
     const {   
         ownerId, 
@@ -74,8 +75,14 @@ const ReviewInfo = ({ spotDetails , currUser, spotId }) => {
           )}
       
           <div className="reviews">
-            {sortedSpotReviews.map((review) => (
-              <ReviewDetails key={review.id} currUser={currUser} review={review} spotId={spotId}/>
+            {sortedSpotReviews.map((review, index) => (
+              <ReviewDetails 
+                key={review.id} 
+                currUser={currUser} 
+                review={review} 
+                spotId={spotId}
+                className={index % 2 === 0 ? "review-even" : "review-odd"}
+                />
             ))} 
           </div>
         </div>

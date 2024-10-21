@@ -1,7 +1,8 @@
 import DeleteReviewModal from "./DeleteReviewModal"
 import OpenModalButton from "../OpenModalButton"
+import "./ReviewDetails.css";
 
-const ReviewDetails = ({review, currUser, spotId}) => {
+const ReviewDetails = ({review, currUser, spotId, className}) => {
 
     const timestamp = review.createdAt
     const date = new Date(timestamp)
@@ -11,7 +12,7 @@ const ReviewDetails = ({review, currUser, spotId}) => {
     return(
         <>
             { review &&(
-                <div className="review-container">
+                <div className={`review-container ${className}`}>
                     <h4 className="review-user">{review.User?.firstName || currUser.firstName}</h4>
                     <p className="review-date">{formattedDate}</p>
                     <p className="review">{review.review}</p>

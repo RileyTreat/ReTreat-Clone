@@ -1,0 +1,19 @@
+.review-date {
+    color: #4a4a4a; 
+    font-size: 0.9rem; 
+    margin-bottom: 2px; 
+    
+  }
+  .review-even {
+    background-color: #f0f0f0; /* Light grey for even reviews */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+  }
+  
+  .review-odd {
+    background-color: #e0e0e0; /* Slightly darker grey for odd reviews */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+  }
