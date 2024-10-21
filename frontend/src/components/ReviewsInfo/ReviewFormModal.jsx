@@ -14,44 +14,46 @@ function ReviewFormModal ({spotId}){
     const [stars, setStars] = useState(0);
     const [hover, setHover] = useState(0);
     const [errors, setErrors] = useState({});
+    const [hasSubmitted, setHasSubmitted] = useState(false);
+    const [serverError, setServerError] = useState("");
     const starsArr = [1, 2, 3, 4, 5];
-
-    
 
     const sessionUser = useSelector((state) => state.session.user)
     const spotReviews= Object.values(useSelector((state) => state.reviews))
 
+    const reviewExists = spotReviews.find(
+        (review) => review.userId === sessionUser.id
+    )
+
     useEffect(() =>{
         const errors ={}
-        const reviewExists = spotReviews.find(
-            (review) => review.userId === sessionUser.id
-        )
         
         if(review.length < 10) errors.review = 'Must be atleast 10 characters'
-
         if(!stars) errors.stars = 'Must select star rating'
-
-        if(reviewExists) errors.review = "review already exists for this spot"
+        if(reviewExists) errors.review = "Review already exists for this spot"
 
         setErrors(errors);
-    }, [review, stars, sessionUser.id])
+    }, [review, stars, sessionUser.id, reviewExists])
 
     const handleSubmit= async (e) => {
         e.preventDefault()
         setErrors({})
+        setHasSubmitted(true);
+        setServerError("");
+
+        if (Object.keys(errors).length > 0) return;
 
         const payload= {
             review,
             stars
         }
-
-        //console.log("PAYLOD", payload, spotId)
-
-        await dispatch(reviewActions.createReviewsThunk(spotId, payload))
-            
-        await dispatch(spotActions.readSpotThunk(spotId))
-        
-        closeModal()
+        try {
+            await dispatch(reviewActions.createReviewsThunk(spotId, payload))  
+            await dispatch(spotActions.readSpotThunk(spotId))
+            closeModal()
+        } catch (err) {
+            setServerError("An error occurred while submitting your review. Please try again.");
+        }
     }
 
     const isDisabled = Object.values(errors).length >= 1
@@ -59,37 +61,39 @@ function ReviewFormModal ({spotId}){
     return(
         <div className="review-modal">
             <h1>How was your stay?</h1>
+            {serverError && <p className="server-error">{serverError}</p>}
             <form onSubmit={handleSubmit} className="review-form">
             <div className="review-text-container">
                  <textarea
                     className="text-area"
-                    type='text'
+                    type="text"
+                    name="review"
                     value={review}
                     placeholder="Leave your review here..."
                     onChange={(e) => setReview(e.target.value)}
                     required
                 />
-                {errors.review && <p>{errors.review}</p>}
+                {hasSubmitted && errors.review && <p>{errors.review}</p>}
             </div>
             <div className='star-container'>
-                {starsArr.map((index) => {
-                    //const currStars = index + 1
-
+                {starsArr.map((currStars) => {
                     return(
-                        <label key={index}>
+                        <label key={currStars}>
                             <input
                                 name="rating"
                                 type="radio"
-                                value={index}
-                                onChange={() =>setStars(index)}
+                                value={currStars}
+                                onChange={() =>setStars(currStars)}
+                                required
                             />
                             <span
                                 className="star"
+                                name="rating" 
                                 style={{
                                 color:
-                                    index <= (hover || stars) ? "#000000" : "#A9D9D0",
+                                    currStars <= (hover || stars) ? "#000000" : "#A9D9D0",
                                 }}
-                                onMouseEnter={() => setHover(index)}
+                                onMouseEnter={() => setHover(currStars)}
                                 onMouseLeave={() => setHover(null)}
                              >
                             <FaStar />
@@ -99,8 +103,8 @@ function ReviewFormModal ({spotId}){
                 })}
                 <span>Stars</span>
             </div>
-            {errors.stars && <p>{errors.stars}</p>}
-                <button disabled={isDisabled} type="submit" className="review-submit-button" onClick={closeModal}>
+            {hasSubmitted && errors.stars && <p>{errors.stars}</p>}
+                <button disabled={isDisabled} type="submit" className="review-submit-button" > 
                     Submit Your Review
                 </button>
             </form>
