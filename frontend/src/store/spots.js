@@ -143,7 +143,7 @@ const spotReducer = (state = initialState, action) => {
             return newState;
         case READ_SPOT:
             newState = {...state}
-            console.log("update spot", action.spot)
+            // console.log("update spot", action.spot)
             newState[action.spot.id] = {...action.spot}
             return newState;
         case READ_ALL_SPOTS:

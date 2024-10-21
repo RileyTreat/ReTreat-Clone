@@ -75,8 +75,8 @@ const CreateSpotForm = ()=> {
     // }
     
 
-        if(previewImage !==""){
-    dispatch(createSpotThunk(spotData))
+      if(previewImage !==""){
+        dispatch(createSpotThunk(spotData))
       .then((data) =>{
         dispatch(createSpotImageThunk(data.id, {url: previewImage, preview: true}))
         return data

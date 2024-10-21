@@ -20,7 +20,9 @@ const {
            {city}, {state}, {country} 
         </p>
         <div className="spot-images">
-          {SpotImages.map((image) => (
+          {SpotImages
+          .sort((a, b) => b.preview - a.preview)
+          .map((image) => (
             <img
               key={image.id}
               src={image.url}
