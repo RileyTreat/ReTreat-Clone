@@ -1,3 +1,3 @@
 import SpotInfo from "./SpotInfo";
 
-export default  SpotInfo
+export default SpotInfo

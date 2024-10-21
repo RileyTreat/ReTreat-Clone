@@ -1,5 +1,6 @@
 //import React from "react"
 import { FaStar } from "react-icons/fa";
+import "./SpotInfo.css";
 
 const SpotInfo= ({ spotDetails  }) => {
 const {   
@@ -22,14 +23,16 @@ const {
         <div className="spot-images">
           {SpotImages
           .sort((a, b) => b.preview - a.preview)
-          .map((image) => (
+          .map((image, index) => (
             <img
               key={image.id}
               src={image.url}
-               className={`preview-${image.preview}`}
+              className={index === 0 ? 'large-image' : 'small-image'} 
+              //  className={`preview-${image.preview}`}
             />
           ))}
         </div>
+        <div className="details-callout-wrapper">
         <div className="details-container">
           <div className="details-text">
             <h2 className="spot-host">
@@ -37,8 +40,8 @@ const {
             </h2>
            <p className="spot-description">{description}</p>
           </div>
-        </div>
-        <div className="callout-container">
+          </div>
+          <div className="callout-container">
               <div className="callout-text">
                 <span className="callout-price"><span className="price">${price}</span> night</span>
                 <p className="callout-rating">
@@ -56,7 +59,7 @@ const {
                 </button>
               </div>
             </div>
- 
+          </div>
         </div>
     )
 }
