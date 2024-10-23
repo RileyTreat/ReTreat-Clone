@@ -123,7 +123,7 @@ module.exports = {
       },
       {
         spotId: 5,
-        url: 'https://cdn.discordapp.com/attachments/1295903741521694771/1298022997474414692/vdaGyIk6RHa1fxqMM475pQ.png?ex=67195f1e&is=67180d9e&hm=8ec337251e98b780ba55195b9498c96e1bec12f9bc980682d67399e006ab9648&',
+        url: 'https://cdn.discordapp.com/attachments/1295903741521694771/1298022997474414692/vdaGyIk6RHa1fxqMM475pQ.png?ex=671a07de&is=6718b65e&hm=a6b767b9bd526fa8e8b30e022eb55008e377b4dfb27e1b1dba904ed5984c06a5&',
         preview: true,
       },
       {
