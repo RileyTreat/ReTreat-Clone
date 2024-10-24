@@ -87,11 +87,13 @@ h2{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 10px;
     overflow: visible;
+    z-index: -1;
   }
 
   .image-wrapper {
     position: relative;
     display: inline-block;
+    z-index: 1;
   }
 
   .spot-image {
