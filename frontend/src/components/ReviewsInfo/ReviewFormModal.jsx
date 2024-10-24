@@ -75,6 +75,7 @@ function ReviewFormModal ({spotId}){
                 />
                 {hasSubmitted && errors.review && <p>{errors.review}</p>}
             </div>
+            <br />
             <div className='star-container'>
                 {starsArr.map((currStars) => {
                     return(

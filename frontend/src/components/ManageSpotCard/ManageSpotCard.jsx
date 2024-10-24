@@ -47,12 +47,17 @@ const ManageSpotCard = ({spot}) => {
             </div>
 
             <div className="spot-details">
-              <p>{spot.city}, {spot.state}</p>
-              <p>${spot.price} / night</p>
-              <p className="stars">
+<span className="top-line">
+
+              <span>{spot.city}, {spot.state}</span>
+              <span className="stars">
                     <FaStar />
                     {spot.avgRating ? spot.avgRating.toFixed(1) : 'New'}
-                </p>
+                </span>
+</span>
+
+              <p>${spot.price} / night</p>
+
             </div>
             <div className="spot-buttons">
                 <div>

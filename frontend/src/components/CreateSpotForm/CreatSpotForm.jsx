@@ -145,7 +145,7 @@ const CreateSpotForm = ()=> {
           </div>
 <div className="location">
 
-          <div className="form-group CityState">
+          <div className="form-group">
             <label>City</label>
             <input className="cityInput"
               type="text"
@@ -157,7 +157,7 @@ const CreateSpotForm = ()=> {
           </div>
  <div className="CityState"><label></label><br /><br />,</div><span></span>
 
-          <div className="form-group CityState">
+          <div className="form-group">
             <label>State</label>
             <input className="stateInput"
               type="text"

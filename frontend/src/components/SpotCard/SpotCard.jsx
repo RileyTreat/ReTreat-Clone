@@ -31,12 +31,16 @@ const [showTooltip, setShowTooltip] = useState(false);
         </div>
 
         <div className="spot-details">
-          <p>{spot.city}, {spot.state}</p>
+        <span className="top-line">
+
+<span>{spot.city}, {spot.state}</span>
+<span className="stars">
+      <FaStar />
+      {spot.avgRating ? spot.avgRating.toFixed(1) : 'New'}
+  </span>
+</span>
           <p>${spot.price} / night</p>
-          <p className="stars">
-            <FaStar />
-            {spot.avgRating ? spot.avgRating.toFixed(1) : 'New'}
-          </p>
+
         </div>
       </div>
     )

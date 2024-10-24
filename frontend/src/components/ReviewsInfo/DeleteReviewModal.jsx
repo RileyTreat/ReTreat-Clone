@@ -15,7 +15,7 @@ const DeleteReviewModal = ({ reviewId, spotId}) => {
 
     const handleClickDelete = async (e) => {
         e.preventDefault();
-    
+
         await dispatch(reviewActions.deleteReviewsThunk(reviewId, currSpotId))
         await dispatch(spotActions.readSpotThunk(spotId)).then(closeModal())
       };
@@ -25,16 +25,18 @@ const DeleteReviewModal = ({ reviewId, spotId}) => {
         <div className="review-modal-container">
             <h1 >Confirm Delete</h1>
             <div>Are you sure you want to delete this review?</div>
-            <button 
-                onClick={handleClickDelete} 
-                className="delete-review-button"
-                style={{ backgroundColor: 'red' }}
+            <br />
+            <br />
+            <button
+                onClick={handleClickDelete}
+                className="delete-review-button butt-wide"
+                style={{ backgroundColor: '#E62539' }}
                 >
                 Yes (Delete Review)
             </button>
-            <button 
-                onClick={closeModal} 
-                className="keep-review-button"
+            <button
+                onClick={closeModal}
+                className="keep-review-button butt-wide"
                 style={{ backgroundColor: '#333333' }}
                 >
                 No (Keep Review)

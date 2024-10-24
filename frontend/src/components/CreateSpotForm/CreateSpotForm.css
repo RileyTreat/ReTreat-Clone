@@ -21,6 +21,27 @@ textarea {
     margin: 0;
     text-align: left;
     width: 95%;
+
+    color: #253659;
+
+}
+textarea::placeholder {
+    opacity: 0.5;
+    color: grey;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size:16px;
+    font-weight: 300;
+  }
+
+  input::placeholder {
+    opacity: 0.5;
+    color: grey;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size:16px;
+    font-weight: 300;
+  }
+textarea{
+    height: 75px;
 }
 
 .cityInput{

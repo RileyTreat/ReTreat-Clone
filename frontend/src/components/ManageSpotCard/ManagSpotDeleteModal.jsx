@@ -20,23 +20,21 @@ const ManageSpotDeleteModal =({spotId}) => {
         <div className="review-modal-container">
             <h1 >Confirm Delete</h1>
             <div>Are you sure you want to remove this spot from the listings?</div>
-            <div className="delete-buttons">
-
+            <br />
             <button
                 onClick={handleClickDelete}
-                className="delete-review-button"
-                style={{ backgroundColor: 'red' }}
+                className="delete-review-button butt-wide"
+                style={{ backgroundColor: '#E62539' }}
                 >
                 Yes (Delete Spot)
             </button>
             <button
                 onClick={closeModal}
-                className="keep-review-button"
+                className="keep-review-button butt-wide"
                 style={{ backgroundColor: '#333333' }}
                 >
                 No (Keep Spot)
             </button>
-                    </div>
         </div>
     )
 }

@@ -30,51 +30,20 @@
     /* Add margin to the top of the input for more space between label and input */
   }
 
-  input {
+  /*input {
     padding: 20px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
-  }
-
-  button {
-    padding: 8px;
-    height: 50px !important;
-    background-color: #3DC6C1;
-    color: #333333;
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
-    margin-bottom: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    /* Add box shadow */
-  }
-
-  button:hover {
-    background-color: #3DC6C1;
-    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
-    /* Increase shadow on hover */
-  }
-
-  button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-
-  h1 {
-    color: #f0f0f0;
-    /* Light text color for contrast */
-    text-align: center;
-    margin-bottom: 20px;
-  }
+  }*/
 
   ul {
-    color: red;
+    color: #E62539;
     list-style-type: none;
     padding: 0;
   }
 
   .error {
-    color: red;
+    color: #E62539;
     margin-top: 5px;
   }

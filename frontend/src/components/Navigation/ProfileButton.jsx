@@ -9,7 +9,7 @@ import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import '/src/index.css'
 import './ProfileButton.css'
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate/*, Link*/ } from 'react-router-dom';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -64,14 +64,18 @@ function ProfileButton({ user }) {
                 Manage Spots
               </Link>
               </li>  */}
-              <li>
-                <button onClick={handleManageSpots} className="manage-link-button">
+<li>
+
+                <button onClick={handleManageSpots} className="manage-link-button prof-butt">
                   Manage Spots
                 </button>
-              </li>
-            <li>
-              <button onClick={logout}>Log Out</button>
-            </li>
+</li>
+<li>
+
+
+              <button onClick={logout} className='prof-butt'>Log Out</button>
+</li>
+
           </li>
         ) : (
           <>

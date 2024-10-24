@@ -1,6 +1,8 @@
 .star-container {
     display: flex;
     justify-content: space-around;
+    gap: 2px;
+    align-items: center;
   }
 
   .star-container label {
@@ -29,9 +31,3 @@
     border-radius: 5px;
     box-sizing: border-box;
   }
-  .star-container{
-    display: inline-flex;
-    gap: 2px;
-    width: 97%;
-    align-items: center;
-}
