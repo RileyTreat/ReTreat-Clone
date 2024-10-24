@@ -68,13 +68,14 @@ z-index: 100
 
 .spot-list{
     display: grid;
-    /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto;
     grid-template-areas: ".spot-card" ".spot-card" ".spot-card" ".spot-card";
     gap: 20px;
 
 }
+
 
 .spot-card {
     flex: 0 1 calc(25% - 5px);
@@ -167,4 +168,24 @@ background-color:#f2f1ef ;
     right: 10px;
     gap: 5px;
     border-radius: 10px;
+}
+
+
+@media (max-width: 1200px) {
+  .spot-list {
+      grid-template-columns: repeat(3, 1fr); /* 3 columns on medium screens */
+  }
+}
+
+@media (max-width: 900px) {
+  .spot-list {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
+  }
+}
+
+
+@media (max-width: 600px) {
+  .spot-list {
+      grid-template-columns: 1fr; /* 1 column on the smallest screens */
+  }
 }

@@ -16,10 +16,10 @@
     color: #ccc;
   }
 
-  .star:hover,
+  /* .star:hover,
   .star-container input:checked ~ .star {
     color: #ffcc00;
-  }
+  } */
 
   .text-area {
     width: 100%;

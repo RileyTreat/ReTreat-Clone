@@ -91,7 +91,7 @@ function ReviewFormModal ({spotId}){
                                 name="rating"
                                 style={{
                                 color:
-                                    currStars <= (hover || stars) ? "#000000" : "#A9D9D0",
+                                    currStars <= (hover || stars) ? "#027373" : "#A9D9D0",
                                 }}
                                 onMouseEnter={() => setHover(currStars)}
                                 onMouseLeave={() => setHover(null)}

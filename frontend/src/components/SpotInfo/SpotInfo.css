@@ -14,7 +14,6 @@
     margin-bottom: 20px;
 }
 
-/* Image grid layout for a wider large image */
 .spot-images {
     display: grid;
     grid-template-columns: 4fr 1.5fr 1.5fr;
@@ -65,7 +64,7 @@
     justify-content: space-between; /* Ensures the containers are side by side */
     gap: 20px; /* Adds space between the containers */
     margin-bottom: 20px;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid #253659;
     padding-bottom: 20px;
   
 }
