@@ -27,7 +27,7 @@ function ReviewFormModal ({spotId}){
 
     useEffect(() =>{
         const errors ={}
-        
+
         if(review.length < 10) errors.review = 'Must be atleast 10 characters'
         if(!stars) errors.stars = 'Must select star rating'
         if(reviewExists) errors.review = "Review already exists for this spot"
@@ -48,7 +48,7 @@ function ReviewFormModal ({spotId}){
             stars
         }
         try {
-            await dispatch(reviewActions.createReviewsThunk(spotId, payload))  
+            await dispatch(reviewActions.createReviewsThunk(spotId, payload))
             await dispatch(spotActions.readSpotThunk(spotId))
             closeModal()
         } catch (err) {
@@ -59,7 +59,7 @@ function ReviewFormModal ({spotId}){
     const isDisabled = Object.values(errors).length >= 1
 
     return(
-        <div className="review-modal">
+        <div className="review-modal modal-box">
             <h1>How was your stay?</h1>
             {serverError && <p className="server-error">{serverError}</p>}
             <form onSubmit={handleSubmit} className="review-form">
@@ -88,7 +88,7 @@ function ReviewFormModal ({spotId}){
                             />
                             <span
                                 className="star"
-                                name="rating" 
+                                name="rating"
                                 style={{
                                 color:
                                     currStars <= (hover || stars) ? "#000000" : "#A9D9D0",
@@ -104,7 +104,7 @@ function ReviewFormModal ({spotId}){
                 <span>Stars</span>
             </div>
             {hasSubmitted && errors.stars && <p>{errors.stars}</p>}
-                <button disabled={isDisabled} type="submit" className="review-submit-button" > 
+                <button disabled={isDisabled} type="submit" className="review-submit-button" >
                     Submit Your Review
                 </button>
             </form>

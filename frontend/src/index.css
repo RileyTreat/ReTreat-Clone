@@ -1,4 +1,163 @@
 body{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: #f2f1ef;
+    color: #253659;
     min-width: 700px;
+    max-width: 1200px;
     display: grid;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #a9d9d0;
+    position: relative;
+    padding: 5px;
+
+}
+
+.logo {
+    height: 70px;
+    border-radius: 30px;
+  }
+
+.nav-buttons {
+    display: flex;
+    flex-direction: row;
+    position: sticky;
+    right: 10px;
+    gap: 5px;
+    border-radius: 10px;
+}
+
+h1{
+    color: #027373;
+}
+h2{
+    font-size: large;
+    color: #F27405;
+}
+
+/* .menu-button{
+    display: inline-flex;
+    padding-top: 25px;
+    align-items: center;
+
+} */
+
+.menu-button {
+    background: #f2f1ef;
+    /* border: 2px solid #8e8e8e; */
+
+    align-items: center;
+
+    gap: 8px;
+    cursor: pointer;
+    font-size: 32px;
+    color: #333333;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    /* position: fixed;
+    top: 25px;
+    right: 20px; */
+
+
+  }
+
+
+
+.spot-list{
+    display: grid;
+    /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas: ".spot-card" ".spot-card" ".spot-card" ".spot-card";
+    gap: 20px;
+}
+
+.spot-card {
+    flex: 0 1 calc(25% - 5px);
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    background-color: whitesmoke;
+    border-radius: 8px;
+    padding: 10px;
+    width: 250px;
+    height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    overflow: visible;
+  }
+
+  .image-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  .spot-image {
+    width: 100%;
+    height: 150px;
+    /* object-fit: cover; */
+    border-radius: 8px;
+    align-self: center;
+    transition: transform 0.2s;
+  }
+
+  .spot-image:hover {
+    transform: scale(1.05); /* Add zoom effect on hover */
+  }
+
+  .tooltip {
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust to perfectly center */
+    background-color: #027373;
+    color: #f2f1ef;
+    padding: 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 10;
+    pointer-events: none; /* Prevent tooltip from interfering with hover */
+    opacity: 0; /* Hide initially */
+    transition: opacity 0.2s; /* Smooth fade-in effect */
+  }
+
+.spot-title{
+    color: #027373
+
+}
+
+.stars{
+    color: #a9d9d0;
+}
+
+button{
+    display: inline-block;
+    position: relative;
+    background-color: #027373;
+    color: #f2f1ef;
+    border-radius: 100px;
+    box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px;
+    padding: 7px 20px;
+    text-align: center;
+
+}
+
+.review-modal-container{
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+background-color:#f2f1ef ;
+}
+
+.delete-buttons {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    right: 10px;
+    gap: 5px;
+    border-radius: 10px;
 }

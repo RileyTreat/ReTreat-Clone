@@ -29,11 +29,11 @@ const [showTooltip, setShowTooltip] = useState(false);
           />
           {showTooltip && <div className="tooltip">{spot.name}</div>}
         </div>
-  
+
         <div className="spot-details">
           <p>{spot.city}, {spot.state}</p>
           <p>${spot.price} / night</p>
-          <p>
+          <p className="stars">
             <FaStar />
             {spot.avgRating ? spot.avgRating.toFixed(1) : 'New'}
           </p>

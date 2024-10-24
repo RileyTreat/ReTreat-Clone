@@ -7,6 +7,7 @@ import * as sessionActions from '../../store/session';
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import '/src/index.css'
 import './ProfileButton.css'
 import { useNavigate, Link } from 'react-router-dom';
 
@@ -51,17 +52,18 @@ function ProfileButton({ user }) {
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
-          <>
+          <li className='login-list'>
             <li>Hello, {user.username}</li>
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
-            <Link to={"/spots/current"} className="manage-link" color="black">
+            <Link to={"/spots/current"} className="manage-link">
                 Manage Spots
               </Link>
+
             <li>
               <button onClick={logout}>Log Out</button>
             </li>
-          </>
+          </li>
         ) : (
           <>
             <li>

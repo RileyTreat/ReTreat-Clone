@@ -6,20 +6,20 @@ import ManageSpotDeleteModal from "./ManagSpotDeleteModal";
 import { FaStar } from "react-icons/fa";
 import './ManageSpotCard.css'
 
-const ManageSpotCard = ({spot}) => { 
+const ManageSpotCard = ({spot}) => {
     const navigate = useNavigate();
     const [showTooltip, setShowTooltip] = useState(false);
-    
+
         const handleClick = () => {
           navigate(`/spots/${spot.id}`);
         };
         const handleUpdateClick = (e) => {
-            e.stopPropagation(); 
+            e.stopPropagation();
             navigate(`/spots/${spot.id}/edit`);
           };
-  
+
           const handleModalClick = (e) => {
-            e.stopPropagation(); 
+            e.stopPropagation();
         };
 
         // const closeMenu = (e) => {
@@ -28,7 +28,7 @@ const ManageSpotCard = ({spot}) => {
         //     }
         //   };
         //console.log(`Spot ID: ${spot.id}, Avg Rating: ${spot.avgRating}`);
-    
+
         return (
             <div
             className="spot-card"
@@ -45,28 +45,28 @@ const ManageSpotCard = ({spot}) => {
               />
               {showTooltip && <div className="tooltip">{spot.name}</div>}
             </div>
-      
+
             <div className="spot-details">
               <p>{spot.city}, {spot.state}</p>
               <p>${spot.price} / night</p>
-              <p>
+              <p className="stars">
                     <FaStar />
                     {spot.avgRating ? spot.avgRating.toFixed(1) : 'New'}
                 </p>
             </div>
-            <div className="buttons">
+            <div className="spot-buttons">
                 <div>
                     <button onClick={handleUpdateClick}>
                         Update
                     </button>
                 </div>
-                <div onClick={handleModalClick}>            
+                <div onClick={handleModalClick}>
                     <OpenModalButton
                       buttonText="Delete"
                     //   onClick={handleModalClick}
                     //   onButtonClick={closeMenu}
                       modalComponent={<ManageSpotDeleteModal spotId={spot.id} />}
-                    />           
+                    />
                 </div>
             </div>
           </div>

@@ -2,30 +2,36 @@
     display: flex;
     justify-content: space-around;
   }
-  
+
   .star-container label {
     cursor: pointer;
   }
-  
+
   input[type="radio"] {
-    display: none; 
+    display: none;
   }
-  
+
   .star {
     font-size: 2rem;
     color: #ccc;
   }
-  
+
   .star:hover,
   .star-container input:checked ~ .star {
-    color: #ffcc00; 
+    color: #ffcc00;
   }
 
   .text-area {
-    width: 100%; 
-    height: 100px; 
-    padding: 10px; 
-    margin: 0 auto; 
-    border-radius: 5px; 
-    box-sizing: border-box; 
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    margin: 0 auto;
+    border-radius: 5px;
+    box-sizing: border-box;
   }
+  .star-container{
+    display: inline-flex;
+    gap: 2px;
+    width: 97%;
+    align-items: center;
+}
