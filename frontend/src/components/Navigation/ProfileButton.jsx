@@ -42,6 +42,10 @@ function ProfileButton({ user }) {
     navigate('/');
     setShowMenu(false);
   };
+  const handleManageSpots = () => {
+    navigate("/spots/current");
+    setShowMenu(false);
+  };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
@@ -56,11 +60,15 @@ function ProfileButton({ user }) {
             <li>Hello, {user.firstName}</li>
             {/* <li> {user.lastName}{user.username}</li> */}
             <li>{user.email}</li>
-            <li><Link to={"/spots/current"} className="manage-link">
+            {/* <li><Link to={"/spots/current"} className="manage-link">
                 Manage Spots
               </Link>
-              </li> 
-
+              </li>  */}
+              <li>
+                <button onClick={handleManageSpots} className="manage-link-button">
+                  Manage Spots
+                </button>
+              </li>
             <li>
               <button onClick={logout}>Log Out</button>
             </li>
