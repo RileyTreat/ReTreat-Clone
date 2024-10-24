@@ -5,14 +5,14 @@
     
   }
   .review-even {
-    background-color: #f0f0f0; /* Light grey for even reviews */
+    background-color: #aad2d6; /* Light grey for even reviews */
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 8px;
   }
   
   .review-odd {
-    background-color: #e0e0e0; /* Slightly darker grey for odd reviews */
+    background-color: #dfe3e4; /* Slightly darker grey for odd reviews */
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 8px;
