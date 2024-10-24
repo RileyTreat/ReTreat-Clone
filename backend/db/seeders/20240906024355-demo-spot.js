@@ -63,7 +63,7 @@ module.exports = {
       {
         ownerId: 2,
         address: "154 Catapillar Ave",
-        city: "8001 Parker Ave",
+        city: "Nashville",
         state: "Tennessee",
         country: "USA",
         lat: 55.5555,
