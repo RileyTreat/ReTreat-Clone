@@ -7,8 +7,9 @@ import * as sessionActions from '../../store/session';
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import '/src/index.css'
 import './ProfileButton.css'
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate/*, Link*/ } from 'react-router-dom';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -41,6 +42,10 @@ function ProfileButton({ user }) {
     navigate('/');
     setShowMenu(false);
   };
+  const handleManageSpots = () => {
+    navigate("/spots/current");
+    setShowMenu(false);
+  };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
@@ -51,17 +56,27 @@ function ProfileButton({ user }) {
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
-          <>
-            <li>Hello, {user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
+          <li className='login-list'>
+            <li>Hello, {user.firstName}</li>
+            {/* <li> {user.lastName}{user.username}</li> */}
             <li>{user.email}</li>
-            <Link to={"/spots/current"} className="manage-link" color="black">
+            {/* <li><Link to={"/spots/current"} className="manage-link">
                 Manage Spots
               </Link>
-            <li>
-              <button onClick={logout}>Log Out</button>
-            </li>
-          </>
+              </li>  */}
+<li>
+
+                <button onClick={handleManageSpots} className="manage-link-button prof-butt">
+                  Manage Spots
+                </button>
+</li>
+<li>
+
+
+              <button onClick={logout} className='prof-butt'>Log Out</button>
+</li>
+
+          </li>
         ) : (
           <>
             <li>

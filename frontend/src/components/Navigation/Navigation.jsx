@@ -3,29 +3,35 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import '/src/index.css'
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
 
   return (
-    <ul className="navigationHeader">
-      <li>
+
+<nav className='nav-bar'>
+
+
+  <div className='nav-logo'>
         <NavLink to="/" >
           <img src="/logo.png" className="logo" />
         </NavLink>
-      </li>
+  </div>
+  <div className='nav-buttons'>
+
       {sessionUser &&(
-      <li>
-          <NavLink to="/spots/new">Create a New Spot</NavLink>
-        </li>
+
+        <NavLink to="/spots/new"><button className='spot-button'>Create a New Spot</button></NavLink>
+
       )}
+
       {isLoaded && (
-        <li>
-          <ProfileButton user={sessionUser} />
-        </li>
+        <ProfileButton  user={sessionUser} />
       )}
-    </ul>
+  </div>
+</nav>
   );
 }
 

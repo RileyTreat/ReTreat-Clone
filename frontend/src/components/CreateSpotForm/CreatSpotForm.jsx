@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import {createSpotThunk } from "../../store/spots"
 import { createSpotImageThunk } from "../../store/images"
-
+import "./CreateSpotForm.css"
 
 const CreateSpotForm = ()=> {
   const navigate = useNavigate()
@@ -49,21 +49,21 @@ const CreateSpotForm = ()=> {
       // }
      setFormErrors(errors)}
   }, [hasSubmitted, country, address, city, state, description, name, price, previewImage, imageUrl1, imageUrl2, imageUrl3, imageUrl4 ]) //lat, lng
-  
-  
-  
+
+
+
   const handleSubmit = async (e) => {
     setHasSubmitted(true)
     e.preventDefault()
     const spotData ={
       address,
-      city, 
-      state, 
+      city,
+      state,
       country,
       lat,
       lng,
       name,
-      description, 
+      description,
       price
     }
     // console.log(spotData)
@@ -73,7 +73,7 @@ const CreateSpotForm = ()=> {
     //     navigate(`/spots/${newSpot.id}`)
     //   })
     // }
-    
+
 
       if(previewImage !==""){
         dispatch(createSpotThunk(spotData))
@@ -104,21 +104,21 @@ const CreateSpotForm = ()=> {
         dispatch(createSpotImageThunk(data.id, {url: imageUrl4, preview: false}))
         }
           return data
-          
+
       })
       .then((data)=>{
         navigate(`/spots/${data.id}`)
       })
     }
 
-    
+
 
   }
 
   return (
     <div className="create-spot-form-container">
-      <h1>Create a New Spot</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 className="title">Create a New Spot</h1>
+      <form onSubmit={handleSubmit} className="long-forms">
         <div className="form-section">
           <h2>Where&apos;s your place located?</h2>
           <p>Guests will only get your exact address once they booked a reservation.</p>
@@ -143,22 +143,23 @@ const CreateSpotForm = ()=> {
             />
             {formErrors.address && <p className="error">{formErrors.address}</p>}
           </div>
+<div className="location">
 
           <div className="form-group">
             <label>City</label>
-            <input
+            <input className="cityInput"
               type="text"
               placeholder="City"
               value={city}
               onChange={(e) => setCity(e.target.value)}
-            />
+              />
             {formErrors.city && <p className="error">{formErrors.city}</p>}
           </div>
-          <p>,</p>
+ <div className="CityState"><label></label><br /><br />,</div><span></span>
 
           <div className="form-group">
             <label>State</label>
-            <input
+            <input className="stateInput"
               type="text"
               placeholder="State"
               value={state}
@@ -166,6 +167,7 @@ const CreateSpotForm = ()=> {
             />
             {formErrors.state && <p className="error">{formErrors.state}</p>}
           </div>
+        </div>
         </div>
 
         {/* <div>
@@ -224,21 +226,23 @@ const CreateSpotForm = ()=> {
           <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
           <div className="form-group">
             <label>Price per night (USD)</label>
-            <input
+            <div className="price"> <span>$</span>
+              <input
               type="number"
               placeholder="Price per night (USD)"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-            />
+              />
             {formErrors.price && <p className="error">{formErrors.price}</p>}
           </div>
+              </div>
         </div>
-       
+
         <div className="form-section">
           <h2>Liven up your spot with photos</h2>
           <p>Submit a link to at least one photo to publish your spot.</p>
           <div className="form-group">
-          
+
             <input
               type="text"
               placeholder="Preview Image URL"
@@ -247,8 +251,9 @@ const CreateSpotForm = ()=> {
             />
             {formErrors.previewImage && <p className="error">{formErrors.previewImage}</p>}
           </div>
+          <br />
             <div  className="form-group">
-           
+
               <input
                 type="text"
                 placeholder="Image URL"
@@ -257,8 +262,9 @@ const CreateSpotForm = ()=> {
               />
               {formErrors.imageUrl1 && <p className="error">{formErrors.imageUrl1}</p>}
             </div>
+            <br />
             <div  className="form-group">
-     
+
               <input
                 type="text"
                 placeholder="Image URL"
@@ -267,8 +273,9 @@ const CreateSpotForm = ()=> {
               />
               {formErrors.imageUrl2 && <p className="error">{formErrors.imageUrl2}</p>}
             </div>
+            <br />
             <div  className="form-group">
-          
+
               <input
                 type="text"
                 placeholder="Image URL"
@@ -277,8 +284,9 @@ const CreateSpotForm = ()=> {
               />
               {formErrors.imageUrl3 && <p className="error">{formErrors.imageUrl3}</p>}
             </div>
+            <br />
             <div  className="form-group">
-      
+
               <input
                 type="text"
                 placeholder="Image URL"
@@ -287,9 +295,10 @@ const CreateSpotForm = ()=> {
               />
               {formErrors.imageUrl4 && <p className="error">{formErrors.imageUrl4}</p>}
             </div>
-       
+            <br />
+
         </div>
-       
+
         <button type="submit" onClick={e => handleSubmit(e)}>Create Spot</button>
         {/* {formErrors && <p>{formErrors}</p>} */}
       </form>

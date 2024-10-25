@@ -88,7 +88,7 @@ module.exports = {
         ownerId: 1,
         address: "17239 Schofar Bend ",
         city: "Budapest",
-        state: "--",
+        state: "Budaörs",
         country: "Hungary",
         lat: 77.7777,
         lng: -77.7777,

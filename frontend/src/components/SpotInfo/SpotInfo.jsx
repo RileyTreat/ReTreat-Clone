@@ -43,7 +43,7 @@ const {
           </div>
           <div className="callout-container">
               <div className="callout-text">
-                <span className="callout-price"><span className="price">${price}</span> night</span>
+                <span className="callout-price">${price} night</span> 
                 <p className="callout-rating">
                   <FaStar />
                   {avgStarRating

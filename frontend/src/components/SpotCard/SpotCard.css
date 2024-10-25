@@ -1,46 +1,42 @@
-.spot-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    width: 200px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 10px;
-    overflow: visible;
-  }
-  
   .image-wrapper {
-    position: relative; /* Needed for absolute positioning of tooltip */
+    position: relative;
     display: inline-block;
   }
-  
+
   .spot-image {
     width: 100%;
     height: 150px;
-    object-fit: cover;
+    /* object-fit: cover; */
+    position: relative;
     border-radius: 8px;
+    align-self: center;
     transition: transform 0.2s;
   }
-  
+
   .spot-image:hover {
     transform: scale(1.05); /* Add zoom effect on hover */
   }
-  
+
+  .image-wrapper:hover .tooltip {
+    opacity: 1; /* Show tooltip on hover */
+  }
+
   .tooltip {
     position: absolute;
     top: 50%; /* Center vertically */
     left: 50%; /* Center horizontally */
     transform: translate(-50%, -50%); /* Adjust to perfectly center */
-    background-color: rgba(0, 0, 0, 0.75); /* Slight transparency for better readability */
-    color: white;
+    background-color: #027373;
+    color: #f2f1ef;
     padding: 8px;
     border-radius: 4px;
     white-space: nowrap;
-    z-index: 10;
     pointer-events: none; /* Prevent tooltip from interfering with hover */
     opacity: 0; /* Hide initially */
     transition: opacity 0.2s; /* Smooth fade-in effect */
   }
-  
-  .image-wrapper:hover .tooltip {
-    opacity: 1; /* Show tooltip on hover */
-  }
+.top-line{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 10px;
+}
